@@ -1,0 +1,26 @@
+stuff to install / run
+
+zsh
+oh-my-zsh
+ln ~/dotfiles/dotinputrc ~/.inputrc
+
+python3 & pip3
+
+i3
+ln ~/dotfiles/i3.config ~/.config/i3/config
+
+i3status
+ln ~/dotfiles/i3status.config ~/.config/i3status/config
+
+feh
+
+vim
+ctags
+ln ~/dotfiles/dotvimrc ~/.vimrc
+
+mkdir ~/gitclones
+github vim vundle
+ln -s ~/gitclones/Vundle.vim ~/.vim/bundle/Vundle.vim
+
+gsettings set org.gnome.desktop.lockdown disable-lock-screen 'true' 
+
