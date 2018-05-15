@@ -3,24 +3,27 @@ filetype off                  " required
 "
 "" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call vundle#begin('~/dotfiles/filenav/bundle')
 ""call vundle#begin('~/some/path/here')
 "
 "" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" some default behavior
 Plugin 'tpope/vim-sensible'
+" some default behavior
+" Plugin 'tpope/vim-sensible'
 " linting engine
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
 " filesystem explorer
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree-git-plugin'
+Plugin 'file:///home/dotfiles/filenav/bundle/filenav'
 " ctags support
-Plugin 'universal-ctags/ctags'
+" Plugin 'universal-ctags/ctags'
 " more ctags support
-Plugin 'ludovicchabant/vim-gutentags'
+" Plugin 'ludovicchabant/vim-gutentags'
 " C-w w toggle window to fullscreen
-Plugin 'vim-scripts/ZoomWin'
-Plugin 'Glench/Vim-Jinja2-Syntax'
+" Plugin 'vim-scripts/ZoomWin'
+" Plugin 'Glench/Vim-Jinja2-Syntax'
 
 "
 "" The following are examples of different formats supported.
