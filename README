@@ -12,7 +12,7 @@ ln ~/dotfiles/i3.config ~/.config/i3/config
 i3status
 ln ~/dotfiles/i3status.config ~/.config/i3status/config
 
-feh
+feh for background images
 
 vim
 ctags

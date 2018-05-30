@@ -1,0 +1,2 @@
+source ~/dotfiles/vim/vimrc.vim
+let vimrc = "loaded"
