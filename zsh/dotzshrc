@@ -1,13 +1,29 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+source ~/etc/fontmaps/*.sh
+
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/redcartel/.oh-my-zsh
+export ZSH=/home/redcartel/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vi_mode root_indicator background_jobs)
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='214'
+POWERLEVEL9K_DIR_ETC_BACKGROUND='214'
+POWERLEVEL9K_DIR_HOME_BACKGROUND='121'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='112'
+POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='black'
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='black'
+POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='white'
+POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='226'
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
+
+ZSH_DISABLE_COMPFIX='true'
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random

@@ -1,22 +1,19 @@
-set nocompatible
-set ai
-set statusline+=%F
-set laststatus=2
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set smartindent
-
-set number
-set colorcolumn=80
-set nocursorline
-set noswapfile
-set undofile
-set undodir=~/.vim/undo
-
-au FileType javascript setl sw=2 sts=2 et
-
-autocmd InsertEnter * set cursorline
-autocmd InsertLeave * set nocursorline
-au BufNewFile,BufRead *.html set filetype=htmldjango
+set nocompatible              " be iMproved, required
+filetype off                  " required
+"
+"" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+""call vundle#begin('~/some/path/here')
+"
+"" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-sensible'
+Plugin 'Glench/Vim-Jinja2-Syntax'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'farmergreg/vim-lastplace'
+Plugin 'redcartel/Redrc.vim'
+call vundle#end()            " required
+filetype plugin indent on    " required
+" echom "dotfiles/vim/vimrc.vim"
