@@ -16,8 +16,8 @@ Plugin 'scrooloose/nerdtree'
 
 "ctags support - right now seeing how well I get by with just langserver
 "plugin
-"Plugin 'universal-ctags/ctags'
-"Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'universal-ctags/ctags'
+Plugin 'ludovicchabant/vim-gutentags'
 
 " I do a lot with jinja2 templates
 Plugin 'Glench/Vim-Jinja2-Syntax'
@@ -48,6 +48,20 @@ Plugin 'farmergreg/vim-lastplace'
 " Finally my own vimrc, packaged as a bundle
 Plugin 'redcartel/Redrc.vim'
 
+" Color scheme options
+Plugin 'rafi/awesome-vim-colorschemes'
+
 " Vundle boilerplate
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+let g:ale_lint_on_save=1
+let g:ale_lint_on_enter=1
+let g:ale_lint_on_text_changed=0
+let g:ale_completion_enabled=1
+let g:airline#extensions#ale#enbled=1
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_fixers = { 'python': ['autopep8', 'yapf'], 'javascript': ['prettier'] }
+let g:ale_linters = { 'python': ['pylint', 'flake8', 'pyls'], 'javascript': ['eslint', 'javascript-typescript-langserver'] }
+set completeopt+=noinsert
+

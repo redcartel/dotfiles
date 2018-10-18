@@ -10,19 +10,23 @@ export ZSH=/home/redcartel/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vi_mode root_indicator background_jobs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode dir virtualenv vcs root_indicator newline)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs)
 POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='214'
 POWERLEVEL9K_DIR_ETC_BACKGROUND='214'
 POWERLEVEL9K_DIR_HOME_BACKGROUND='121'
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='112'
 POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='black'
 POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='black'
-POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='white'
+POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='014'
 POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='226'
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND='040'
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='190'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='166'
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+POWERLEVEL9K_SHORTEN_DELIMITER=""
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 ZSH_THEME="powerlevel9k/powerlevel9k"
-
-
 ZSH_DISABLE_COMPFIX='true'
 
 # Set list of themes to load
@@ -110,9 +114,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-cat ~/TODO
-alias python=python3
-alias pip=pip3
-# alias icd='cd /home/redcartel/cdrive/byte/instruction/icd-example'
-alias venv='source *venv*/bin/activate'
-alias cdwk="cd $(pwd -P)"
+source ~/bin/alias.sh

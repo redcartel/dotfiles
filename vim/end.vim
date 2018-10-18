@@ -7,8 +7,3 @@
 "        \ })
 "endif
 
-let g:ale_completion_enabled=1
-let g:airline#extensions#ale#enbled=1
-let g:ale_warn_about_trailing_whitespace = 0
-let g:ale_fixers = ['autopep8', 'yapf']
-let g:ale_linters = {'python': ['pylint', 'flake8', 'pyls']}
