@@ -1,3 +1,11 @@
-fonts:
+install:
 
-https://github.com/gabrielelana/awesome-terminal-fonts
+github:powerline/fonts
+
+install oh-my-zsh
+install powerlevel9k for oh-my-zsh
+add powerlevel9k config to .zshrc
+add "source ~/bin/alias.sh" to end of .zshrc
+
+i3wm
+
