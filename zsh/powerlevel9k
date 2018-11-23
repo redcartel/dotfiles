@@ -1,5 +1,5 @@
 POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode dir virtualenv vcs root_indicator newline)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(direnv vi_mode vcs root_indicator newline)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs)
 POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='214'
 POWERLEVEL9K_DIR_ETC_BACKGROUND='214'

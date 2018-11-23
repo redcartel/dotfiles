@@ -1,0 +1,3 @@
+scp ~/dotfiles/remote/remoterc/.bashrc $IP/.bashrc
+scp ~/dotfiles/remote/remoterc/.bash_profile $IP/.bash_profile
+scp ~/dotfiles/remote/remoterc/.inputrc $IP/.inputrc

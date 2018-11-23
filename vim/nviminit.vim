@@ -35,10 +35,12 @@ syntax enable
 let g:ale_linters = {}
 let g:ale_linters["python"] = ["pyls", "pylint", "flake8"]
 let g:ale_linters["javascript"] = ["tsserver", "eslint"]
+let g:ale_linters["css"] = ["stylelint"]
 let g:ale_linters["markdown"] = ["write-good"]
-let g:ale_linters["html"] = ["htmlhint", "jslint", "
+let g:ale_linters["html"] = ["htmlhint", "jslint", "stylelint"]
 let g:ale_fixers = {}
 let g:ale_fixers["python"] = ["autopep8", "yapf"]
+let g:ale_fixers["javascript"] = ["prettier"]
 let g:ale_completion_enabled = 1
 let g:airline#extensions#enabled = 1
 let g:ale_close_preview_on_insert = 1
@@ -50,6 +52,7 @@ let g:ale_lint_delay = 250
 let g:ale_sign_column_always = 1
 let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_set_balloons = 1
+set completeopt+=noinsert
 
 nnoremap <C-j> :lnext
 nnoremap <C-k> :lprev

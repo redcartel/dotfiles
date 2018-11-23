@@ -1,0 +1,4 @@
+/etc/php/7.2/apache2/php.ini
+
+upload_max_filesize
+short_open_tag

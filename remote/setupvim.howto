@@ -1,0 +1,5 @@
+scp ~/dotfiles/vim/vimrc.vim $IP:.vimrc
+
+remote:
+mkdir -p ~/.vim/bundle
+git clone https://github.com/vundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
