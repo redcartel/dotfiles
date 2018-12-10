@@ -1,11 +1,17 @@
-install:
+braniac.online IP : 192.241.135.21
 
-github:powerline/fonts
+new brainiac IP: 206.189.239.69
+braniac DB Pass : BionicCommando1988
 
-install oh-my-zsh
-install powerlevel9k for oh-my-zsh
-add powerlevel9k config to .zshrc
-add "source ~/bin/alias.sh" to end of .zshrc
+braniac email
+braniaconline@aol.com BionicCommando1988
 
-i3wm
+programs:
+gmusicbrowser (?)
+cpufrequtils
+write-good
+rhythmbox
+zeal (documentation)
+okular (pdf)
 
+Istanbul Byzantine Fault Tolerance?
