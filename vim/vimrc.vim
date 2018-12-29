@@ -13,6 +13,7 @@ Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'farmergreg/vim-lastplace'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'redcartel/Redrc.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
