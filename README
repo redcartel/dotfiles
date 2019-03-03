@@ -18,6 +18,10 @@ vim
 ctags
 ln ~/dotfiles/dotvimrc ~/.vimrc
 
+nvim
+dein
+ln ~/dotfiles/nviminit ~/.config/nvim/init.vim
+
 mkdir ~/gitclones
 github vim vundle
 ln -s ~/gitclones/Vundle.vim ~/.vim/bundle/Vundle.vim

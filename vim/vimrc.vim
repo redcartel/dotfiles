@@ -4,10 +4,9 @@ filetype off                  " Vundle requirement
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'                   " holy trinity. plugin manager
+Plugin 'VundleVim/Vundle.vim'                   " plugin manager
 Plugin 'tpope/vim-sensible'                     "   + tpope's sensible defaults
 Plugin 'redcartel/Redrc.vim'                    "   + my own herbs and spices
-
 Plugin 'vim-lastplace'                          " cursor stars where you left
                                                 "   off
 
