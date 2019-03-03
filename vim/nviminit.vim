@@ -11,6 +11,7 @@ if dein#load_state('~/.cache/dein')
  call dein#add('tpope/vim-sensible')                        " sensible defaults (? needed for nvim?) 
  
  call dein#add('w0rp/ALE')                                  " langserver, linter, formatter etc.
+ call dein#add('vim-syntastic/syntastic')            " syntax checker
  
  call dein#add('Shougo/defx.nvim')                          " file browser
  call dein#add('kristijanhusak/defx-git')                   " git icons for file browser
@@ -51,7 +52,7 @@ syntax enable
 set mouse=a
 colorscheme materialbox
 set background=dark
-let mapleader="\<SPACE>"
+" let mapleader="\<SPACE>"
 " be higher contrast
 :highlight Normal ctermfg=white ctermbg=232 
 
@@ -62,11 +63,9 @@ nmap <M-RIGHT> gbn
 
 " turn on indent guides
 let g:indent_guides_enable_on_vim_startup = 1
-
 let g:airline_powerline_fonts = 1
 let g:airline_theme="zenburn"
 let g:airline#extensions#enabled = 1
-
 let g:rainbow_active = 1 
 
 autocmd FileType defx call s:defx_my_settings()
@@ -127,7 +126,9 @@ function! s:defx_my_settings() abort
     nnoremap <silent><buffer><expr> cd
     \ defx#do_action('change_vim_cwd')
 endfunction
-au BufNewFile,BufRead netrw Defx
+au BufNewFile,BufRead netrw set filetype=defx
+
+
 
 " ALE settings (asynchonous linting, langserver)
 
@@ -169,6 +170,13 @@ let g:ale_fixers["json"] = ["prettier"]
 let g:ale_linters["markdown"] = ["write-good"]
 let g:ale_fixers["markdown"] = ["prettier"]
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_w = 0
+let g:syntastic_mode_map = { "mode": "passive" }
+let g:syntastic_python_checkers = ['pylint']
 
 "ALE shortcuts
 nnoremap <Leader>K <Plug>(ale_previous_wrap)
@@ -184,3 +192,26 @@ nmap <C-s> :windo lcl\|ccl<CR>
 " python unit test shortcut
 nmap <Leader>tp :!zsh -c "export PYTHONPATH=$(pwd); pytest"<CR>
 
+" rainbow perens
+let g:rainbow_conf = {
+	\	'guifgs': ['royalblue3', 'darkorange3', 'firebrick'],
+	\	'ctermfgs': ['lightgreen', 'lightred', 'lightyellow', 'lightblue'],
+	\	'operators': '_,_',
+	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+	\	'separately': {
+	\		'*': {},
+	\		'tex': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+	\		},
+	\		'lisp': {
+	\			'guifgs': ['darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+	\		},
+	\		'vim': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+	\		},
+	\		'html': {
+	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+	\		},
+	\		'css': 0,
+	\	}
+	\}
