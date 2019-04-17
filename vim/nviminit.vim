@@ -11,7 +11,7 @@ if dein#load_state('~/.cache/dein')
  call dein#add('tpope/vim-sensible')                        " sensible defaults (? needed for nvim?) 
  
  call dein#add('w0rp/ALE')                                  " langserver, linter, formatter etc.
- call dein#add('vim-syntastic/syntastic')            " syntax checker
+ " call dein#add('vim-syntastic/syntastic')            " syntax checker
  
  call dein#add('Shougo/defx.nvim')                          " file browser
  call dein#add('kristijanhusak/defx-git')                   " git icons for file browser
@@ -30,6 +30,8 @@ if dein#load_state('~/.cache/dein')
  call dein#add('nathanaelkane/vim-indent-guides')           " indent level highlighting
  call dein#add('farmergreg/vim-lastplace')                  " start editing at last edit point
 
+ call dein#add('pangloss/vim-javascript')
+ call dein#add('mxw/vim-jsx')
  call dein#add('Glench/Vim-Jinja2-Syntax')                  " highlight {% jinja %} shit in .html files
  " call dein#add('neoclide/vim-jsx-improve')
  " call dein#add('janko-m/vim-test')                        
@@ -136,7 +138,8 @@ let g:ale_completion_enabled = 1
 let g:ale_close_preview_on_insert = 1
 let g:ale_open_list = 1
 let g:ale_list_window_size = 6
-let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 1
+let g:ale_lint_delay = 250
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 1
 let g:ale_sign_column_always = 1
@@ -152,31 +155,31 @@ let g:ale_fixers = {}
 call ale#Set('javascript_prettier_standard_options', '')
 let g:ale_linters["javascript"] = ["eslint", "tsserver"]
 let g:ale_fixers["javascript"] = ["prettier-standard"]
-let g:ale_fixers["angular"] = ["prettier"]
+" let g:ale_fixers["angular"] = ["prettier"]
 
 let g:ale_linters["python"] = ["pyls"] "flake8
 let g:ale_fixers["python"] = ["autopep8", "yapf"]
 
-let g:ale_linters["css"] = ["vscode-css-languageservice"]
-let g:ale_fixers["css"] = ["prettier"]
-let g:ale_fixers["scss"] = ["prettier"]
+" let g:ale_linters["css"] = ["css-languageserver"]
+" let g:ale_fixers["css"] = ["prettier"]
+" let g:ale_fixers["scss"] = ["prettier"]
 
-let g:ale_linters["html"] = ["htmlhint", "tsserver", "vscode-css-languageservice"]
-let g:ale_fixers["html"] = ["prettier"]
+" let g:ale_linters["html"] = ["htmlhint", "tsserver", "eslint", "tsserver"]
+" let g:ale_fixers["html"] = ["prettier"]
 let g:ale_fixers["htmldjango"] = ["prettier"]
 
 let g:ale_fixers["json"] = ["prettier"]
 
-let g:ale_linters["markdown"] = ["write-good"]
-let g:ale_fixers["markdown"] = ["prettier"]
+" let g:ale_linters["markdown"] = ["write-good"]
+" let g:ale_fixers["markdown"] = ["prettier"]
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_check_on_w = 0
-let g:syntastic_mode_map = { "mode": "passive" }
-let g:syntastic_python_checkers = ['pylint']
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_check_on_w = 0
+" let g:syntastic_mode_map = { "mode": "passive" }
+" let g:syntastic_python_checkers = ['pylint']
 
 "ALE shortcuts
 nnoremap <Leader>K <Plug>(ale_previous_wrap)
