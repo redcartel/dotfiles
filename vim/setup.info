@@ -1,0 +1,23 @@
+set up Dein for neovim:
+
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+installer.sh ~/.cache/dein
+
+set up Vundle for vim:
+
+git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+
+ln dotvimrc ~/.vimrc
+ln nviminit ~/.cache/nvim/init.vim
+
+nvim config needs a nerd font terminal
+
+in vim:
+:PluginInstall()
+
+in nvim:
+:call dein#install()
+
+langservers:
+pip3 install --user python-language-server autopep8
+sudo npm install -g eslint prettier prettier-standard javascript-typescript-langserver

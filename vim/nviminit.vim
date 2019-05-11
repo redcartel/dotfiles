@@ -8,41 +8,49 @@ if dein#load_state('~/.cache/dein')
  call dein#begin('~/.cache/dein')
  call dein#add('~/.cache/dein')
 
- call dein#add('tpope/vim-sensible')                        " sensible defaults (? needed for nvim?) 
+ call dein#add('tpope/vim-sensible')
+ " sensible defaults (?needed for nvim?, eh, don't mess with success) 
+ call dein#add('Shougo/deoplete.nvim')
+ " autocompletion
+ call dein#add('w0rp/ALE')                                  
+ " langserver, linter, formatter etc.
  
- call dein#add('w0rp/ALE')                                  " langserver, linter, formatter etc.
- " call dein#add('vim-syntastic/syntastic')            " syntax checker
- 
- call dein#add('Shougo/defx.nvim')                          " file browser
- call dein#add('kristijanhusak/defx-git')                   " git icons for file browser
+ "call dein#add('Shougo/defx.nvim')
+ " file browser
+ "call dein#add('kristijanhusak/defx-git) 
+ " git icons for file browser
 
- call dein#add('dhruvasagar/vim-buffer-history')            " forward / back in buffer open history
- 
- call dein#add('tpope/vim-fugitive')                        " git integration
- call dein#add('airblade/vim-gitgutter')                    " note file changes in gutter
- 
- call dein#add('mkarmona/materialbox')                      " color scheme
- call dein#add('vim-airline/vim-airline')                   " cool status bar
- call dein#add('vim-airline/vim-airline-themes')            " themes for above
- call dein#add('ryanoasis/vim-devicons')                    " nerdfonts symbols
+ call dein#add('dhruvasagar/vim-buffer-history')            
+ " forward / back in buffer open history 
+ call dein#add('tpope/vim-fugitive')                        
+ " git integration
+ call dein#add('airblade/vim-gitgutter')                    
+ " note file changes in gutter
+ call dein#add('mkarmona/materialbox')                      
+ " color scheme
+ call dein#add('vim-airline/vim-airline')                   
+ " cool status bar
+ call dein#add('vim-airline/vim-airline-themes')            
+ " themes for above
+ call dein#add('ryanoasis/vim-devicons')                    
+ " nerdfonts symbols
+ call dein#add('luochen1990/rainbow')                       
+ " rainbow perens etc.
+ call dein#add('nathanaelkane/vim-indent-guides')           
+ " indent level highlighting
+ call dein#add('farmergreg/vim-lastplace')                  
+ " start editing at last edit point
 
- call dein#add('luochen1990/rainbow')                       " rainbow perens etc.
- call dein#add('nathanaelkane/vim-indent-guides')           " indent level highlighting
- call dein#add('farmergreg/vim-lastplace')                  " start editing at last edit point
-
- call dein#add('pangloss/vim-javascript')
+ " call dein#add('pangloss/vim-javascript')
  call dein#add('mxw/vim-jsx')
- call dein#add('Glench/Vim-Jinja2-Syntax')                  " highlight {% jinja %} shit in .html files
+ call dein#add('othree/yajs')
+ " javascript & jsx highlighting
+
+ call dein#add('Glench/Vim-Jinja2-Syntax')                  
+ " highlight {% jinja %} shit in .html files
  " call dein#add('neoclide/vim-jsx-improve')
  " call dein#add('janko-m/vim-test')                        
- call dein#add('redcartel/Redrc.vim')                       " my .vimrc
- 
- " not sure what this was about? plugins for nvim compatibility in vim8
- " but I'm not using vim8 that way. who knows man, who knows.
- "if !has('nvim')
-   "call dein#add('roxma/nvim-yarp')
-   "call dein#add('roxma/vim-hug-neovim-rpc')
- "endif
+ call dein#add('redcartel/Redrc.vim')                        " my .vimrc
 
  call dein#end()
  call dein#save_state()
@@ -70,65 +78,6 @@ let g:airline_theme="zenburn"
 let g:airline#extensions#enabled = 1
 let g:rainbow_active = 1 
 
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-    " Defx keys. TODO: fuck with this some
-    nnoremap <silent><buffer><expr> <CR>
-          \ defx#do_action('drop')
-    nnoremap <silent><buffer><expr> c
-    \ defx#do_action('copy')
-    nnoremap <silent><buffer><expr> m
-    \ defx#do_action('move')
-    nnoremap <silent><buffer><expr> p
-    \ defx#do_action('paste')
-    nnoremap <silent><buffer><expr> l
-    \ defx#do_action('open')
-    nnoremap <silent><buffer><expr> E
-    \ defx#do_action('open', 'vsplit')
-    nnoremap <silent><buffer><expr> P
-    \ defx#do_action('open', 'pedit')
-    nnoremap <silent><buffer><expr> K
-    \ defx#do_action('new_directory')
-    nnoremap <silent><buffer><expr> N
-    \ defx#do_action('new_file')
-    nnoremap <silent><buffer><expr> M
-    \ defx#do_action('new_multiple_files')
-    nnoremap <silent><buffer><expr> d
-    \ defx#do_action('remove')
-    nnoremap <silent><buffer><expr> r
-    \ defx#do_action('rename')
-    nnoremap <silent><buffer><expr> !
-    \ defx#do_action('execute_command')
-    nnoremap <silent><buffer><expr> x
-    \ defx#do_action('execute_system')
-    nnoremap <silent><buffer><expr> yy
-    \ defx#do_action('yank_path')
-    nnoremap <silent><buffer><expr> .
-    \ defx#do_action('toggle_ignored_files')
-    nnoremap <silent><buffer><expr> ;
-    \ defx#do_action('repeat')
-    nnoremap <silent><buffer><expr> h
-    \ defx#do_action('cd', ['..'])
-    nnoremap <silent><buffer><expr> ~
-    \ defx#do_action('cd')
-    nnoremap <silent><buffer><expr> q
-    \ defx#do_action('quit')
-    nnoremap <silent><buffer><expr> <Space>
-    \ defx#do_action('toggle_select') . 'j'
-    nnoremap <silent><buffer><expr> *
-    \ defx#do_action('toggle_select_all')
-    nnoremap <silent><buffer><expr> j
-    \ line('.') == line('$') ? 'gg' : 'j'
-    nnoremap <silent><buffer><expr> k
-    \ line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><expr> <C-l>
-    \ defx#do_action('redraw')
-    nnoremap <silent><buffer><expr> <C-g>
-    \ defx#do_action('print')
-    nnoremap <silent><buffer><expr> cd
-    \ defx#do_action('change_vim_cwd')
-endfunction
-au BufNewFile,BufRead netrw set filetype=defx
 
 
 
@@ -167,7 +116,6 @@ let g:ale_fixers["python"] = ["autopep8", "yapf"]
 " let g:ale_linters["html"] = ["htmlhint", "tsserver", "eslint", "tsserver"]
 " let g:ale_fixers["html"] = ["prettier"]
 let g:ale_fixers["htmldjango"] = ["prettier"]
-
 let g:ale_fixers["json"] = ["prettier"]
 
 " let g:ale_linters["markdown"] = ["write-good"]
@@ -186,14 +134,7 @@ nnoremap <Leader>K <Plug>(ale_previous_wrap)
 nnoremap <Leader>J <Plug>(ale_next_wrap)
 nnoremap <Leader>D :ALEGoToDefinition<CR>
 nnoremap <Leader>F <Plug>(ale_find_references)
-nmap <Leader>H <Plug>(ale_hover)
-
-" TODO: what the hell is this? I foget.
-nmap <C-s> :windo lcl\|ccl<CR>                     
-
-
-" python unit test shortcut
-nmap <Leader>tp :!zsh -c "export PYTHONPATH=$(pwd); pytest"<CR>
+nmap     <Leader>H <Plug>(ale_hover)
 
 " rainbow perens
 let g:rainbow_conf = {
@@ -218,3 +159,63 @@ let g:rainbow_conf = {
 	\		'css': 0,
 	\	}
 	\}
+ 
+" autocmd FileType defx call s:defx_my_settings()
+" function! s:defx_my_settings() abort
+"    " Defx keys. TODO: fuck with this some
+"     nnoremap <silent><buffer><expr> <CR>
+"           \ defx#do_action('drop')
+"     nnoremap <silent><buffer><expr> c
+"    \ defx#do_action('copy')
+"    nnoremap <silent><buffer><expr> m
+ "     \ defx#do_action('move')
+ "     nnoremap <silent><buffer><expr> p
+ "     \ defx#do_action('paste')
+ "     nnoremap <silent><buffer><expr> l
+ "     \ defx#do_action('open')
+ "     nnoremap <silent><buffer><expr> E
+ "     \ defx#do_action('open', 'vsplit')
+ "     nnoremap <silent><buffer><expr> P
+ "     \ defx#do_action('open', 'pedit')
+ "     nnoremap <silent><buffer><expr> K
+ "     \ defx#do_action('new_directory')
+ "     nnoremap <silent><buffer><expr> N
+ "     \ defx#do_action('new_file')
+ "     nnoremap <silent><buffer><expr> M
+ "     \ defx#do_action('new_multiple_files')
+ "     nnoremap <silent><buffer><expr> d
+ "     \ defx#do_action('remove')
+ "     nnoremap <silent><buffer><expr> r
+ "     \ defx#do_action('rename')
+ "     nnoremap <silent><buffer><expr> !
+ "     \ defx#do_action('execute_command')
+ "     nnoremap <silent><buffer><expr> x
+ "     \ defx#do_action('execute_system')
+ "     nnoremap <silent><buffer><expr> yy
+ "     \ defx#do_action('yank_path')
+ "     nnoremap <silent><buffer><expr> .
+ "     \ defx#do_action('toggle_ignored_files')
+ "     nnoremap <silent><buffer><expr> ;
+ "     \ defx#do_action('repeat')
+ "     nnoremap <silent><buffer><expr> h
+ "     \ defx#do_action('cd', ['..'])
+ "     nnoremap <silent><buffer><expr> ~
+ "     \ defx#do_action('cd')
+ "     nnoremap <silent><buffer><expr> q
+ "     \ defx#do_action('quit')
+ "     nnoremap <silent><buffer><expr> <Space>
+ "     \ defx#do_action('toggle_select') . 'j'
+ "     nnoremap <silent><buffer><expr> *
+ "     \ defx#do_action('toggle_select_all')
+ "     nnoremap <silent><buffer><expr> j
+ "     \ line('.') == line('$') ? 'gg' : 'j'
+ "     nnoremap <silent><buffer><expr> k
+ "     \ line('.') == 1 ? 'G' : 'k'
+ "     nnoremap <silent><buffer><expr> <C-l>
+ "     \ defx#do_action('redraw')
+ "     nnoremap <silent><buffer><expr> <C-g>
+ "     \ defx#do_action('print')
+ "     nnoremap <silent><buffer><expr> cd
+ "     \ defx#do_action('change_vim_cwd')
+ " endfunction
+ " au BufNewFile,BufRead netrw set filetype=defx

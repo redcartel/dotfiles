@@ -215,3 +215,4 @@ PROMPT_COMMAND=set_bash_prompt
 
 export PATH=/home/redcartel/binfiles:$PATH
 source ~/binfiles/alias.sh
+export FLASK_DEBUG=1

@@ -25,7 +25,7 @@ filetype plugin indent on    " required
 
 if has("gui_running")
     " specific settings for gvim graphical display
-
+    set nonumber
     " MS-DOS Wordperfect circa 1990 looking motherfucker
     colorscheme blue
     
