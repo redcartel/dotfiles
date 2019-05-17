@@ -15,12 +15,8 @@ if dein#load_state('~/.cache/dein')
  " autocompletion
  call dein#add('w0rp/ALE')                                  
  " langserver, linter, formatter etc.
- 
- "call dein#add('Shougo/defx.nvim')
- " file browser
- "call dein#add('kristijanhusak/defx-git) 
- " git icons for file browser
-
+ "call dein#add('autozimu/LanguageClient-neovim')
+ " langserver
  call dein#add('dhruvasagar/vim-buffer-history')            
  " forward / back in buffer open history 
  call dein#add('tpope/vim-fugitive')                        
@@ -41,29 +37,39 @@ if dein#load_state('~/.cache/dein')
  " indent level highlighting
  call dein#add('farmergreg/vim-lastplace')                  
  " start editing at last edit point
-
- " call dein#add('pangloss/vim-javascript')
- call dein#add('mxw/vim-jsx')
  call dein#add('othree/yajs')
+ call dein#add('neoclide/vim-jsx-improve')
  " javascript & jsx highlighting
-
  call dein#add('Glench/Vim-Jinja2-Syntax')                  
  " highlight {% jinja %} shit in .html files
- " call dein#add('neoclide/vim-jsx-improve')
- " call dein#add('janko-m/vim-test')                        
+ "call dein#add('janko-m/vim-test')                        
+ " unit testing automation
  call dein#add('redcartel/Redrc.vim')                        " my .vimrc
 
  call dein#end()
  call dein#save_state()
 endif
 
+" let deoplete#enable_at_startup=1
+
 filetype plugin indent on
 syntax enable
 
+" mouse
 set mouse=a
+
+" hi i'm blind
 colorscheme materialbox
 set background=dark
-" let mapleader="\<SPACE>"
+
+" i don't use macros or ex mode
+nnoremap Q <nop>
+map q <Nop>
+
+" better block indenting
+vmap < <gv
+vmap > >gv
+
 " be higher contrast
 :highlight Normal ctermfg=white ctermbg=232 
 
@@ -77,13 +83,8 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme="zenburn"
 let g:airline#extensions#enabled = 1
-let g:rainbow_active = 1 
-
-
-
 
 " ALE settings (asynchonous linting, langserver)
-
 let g:ale_completion_enabled = 1
 let g:ale_close_preview_on_insert = 1
 let g:ale_open_list = 1
@@ -95,42 +96,27 @@ let g:ale_lint_delay = 1
 let g:ale_sign_column_always = 1
 let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_set_balloons = 1
-set completeopt+=noinsert                       " don't love this but ALE
-                                                " insertion is overzealous
+set completeopt+=noinsert
 
 let g:ale_linters = {}
 let g:ale_fixers = {}
 
 " Language specific settings
-call ale#Set('javascript_prettier_standard_options', '')
-let g:ale_linters["javascript"] = ["eslint", "tsserver"]
-let g:ale_fixers["javascript"] = ["prettier-standard"]
-" let g:ale_fixers["angular"] = ["prettier"]
+" call ale#Set('javascript_prettier_standard_options', '')
+let g:ale_linters["javascript"] = ["tsserver", "eslint-react"]
+let g:ale_fixers["javascript"] = ["prettier-standard", "eslint"]
 
 let g:ale_linters["python"] = ["pyls"] "flake8
 let g:ale_fixers["python"] = ["autopep8", "yapf"]
 
-" let g:ale_linters["css"] = ["css-languageserver"]
-" let g:ale_fixers["css"] = ["prettier"]
+let g:ale_linters["css"] = ["css-languageserver"]
+let g:ale_fixers["css"] = ["prettier"]
 " let g:ale_fixers["scss"] = ["prettier"]
-
-" let g:ale_linters["html"] = ["htmlhint", "tsserver", "eslint", "tsserver"]
-" let g:ale_fixers["html"] = ["prettier"]
+let g:ale_linters["htmldjango"] = ["htmlhint"]
+let g:ale_fixers["html"] = ["prettier"]
 let g:ale_fixers["htmldjango"] = ["prettier"]
 let g:ale_fixers["json"] = ["prettier"]
 
-" let g:ale_linters["markdown"] = ["write-good"]
-" let g:ale_fixers["markdown"] = ["prettier"]
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_check_on_w = 0
-" let g:syntastic_mode_map = { "mode": "passive" }
-" let g:syntastic_python_checkers = ['pylint']
-
-"ALE shortcuts
 nnoremap <Leader>K <Plug>(ale_previous_wrap)
 nnoremap <Leader>J <Plug>(ale_next_wrap)
 nnoremap <Leader>D :ALEGoToDefinition<CR>
@@ -138,6 +124,7 @@ nnoremap <Leader>F <Plug>(ale_find_references)
 nmap     <Leader>H <Plug>(ale_hover)
 
 " rainbow perens
+let g:rainbow_active = 1 
 let g:rainbow_conf = {
 	\	'guifgs': ['royalblue3', 'darkorange3', 'firebrick'],
 	\	'ctermfgs': ['lightgreen', 'lightred', 'lightyellow', 'lightblue'],
@@ -220,3 +207,16 @@ let g:rainbow_conf = {
  "     \ defx#do_action('change_vim_cwd')
  " endfunction
  " au BufNewFile,BufRead netrw set filetype=defx
+
+
+" let g:ale_linters["markdown"] = ["write-good"]
+" let g:ale_fixers["markdown"] = ["prettier"]
+
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_check_on_w = 0
+" let g:syntastic_mode_map = { "mode": "passive" }
+" let g:syntastic_python_checkers = ['pylint']
+
