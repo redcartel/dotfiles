@@ -213,6 +213,8 @@ ${PROMPT_SYMBOL} "
 # Tell bash to execute this function just before displaying its prompt.
 PROMPT_COMMAND=set_bash_prompt
 
-export PATH=/home/redcartel/binfiles:$PATH
+export PATH=/home/redcartel/binfiles:/home/redcartel/installers/bin:$PATH
 source ~/binfiles/alias.sh
 export FLASK_DEBUG=1
+export HISTSIZE=1000000000
+

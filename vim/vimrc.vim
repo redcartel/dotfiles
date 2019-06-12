@@ -3,13 +3,11 @@ filetype off                  " Vundle requirement
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'VundleVim/Vundle.vim'                   " plugin manager
 Plugin 'tpope/vim-sensible'                     "   + tpope's sensible defaults
 Plugin 'redcartel/Redrc.vim'                    "   + my own herbs and spices
 Plugin 'vim-lastplace'                          " cursor stars where you left
                                                 "   off
-
 if has("gui_running")
                                                 " i use gvim as basically
                                                 " notepad. neovim is my ide
@@ -28,7 +26,6 @@ if has("gui_running")
     set nonumber
     " MS-DOS Wordperfect circa 1990 looking motherfucker
     colorscheme blue
-    
     " No shortcut icons or other bullshit. Keep the menus though. 
     set guioptions-=T
     set guioptions-=r
@@ -36,10 +33,8 @@ if has("gui_running")
 
     " Hi, I'm fucking blind
     set guifont=Monaco\ 20
-
 else
     " specific settings for plugins in curses vim
-
     " leader+s checks file's syntax
     nmap <Leader>S :SyntasticCheck<CR>
 
