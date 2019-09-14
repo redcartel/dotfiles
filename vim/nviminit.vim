@@ -18,7 +18,7 @@ if dein#load_state('~/.cache/dein')
  "call dein#add('autozimu/LanguageClient-neovim')
  " langserver
  call dein#add('dhruvasagar/vim-buffer-history')            
- " forward / back in buffer open history 
+ " forward / back in buffer open history (alt + lr arrows) 
  call dein#add('tpope/vim-fugitive')                        
  " git integration
  call dein#add('airblade/vim-gitgutter')                    
@@ -41,22 +41,48 @@ if dein#load_state('~/.cache/dein')
  call dein#add('neoclide/vim-jsx-improve')
  " javascript & jsx highlighting
  call dein#add('Glench/Vim-Jinja2-Syntax')                  
+ call dein#add('pangloss/vim-javascript')
+ call dein#add('sourcegraph/javascrpt-typescript-langserver')
+ call dein#add('vscode-langservers/vscode-css-languageserver-bin')
+ " TODO: jest w cragdallimore/vim-jest-cli
+
  " highlight {% jinja %} shit in .html files
  "call dein#add('janko-m/vim-test')                        
  " unit testing automation
  call dein#add('redcartel/Redrc.vim')                        " my .vimrc
+ " Shougo neosnippit.vim
+ call dein#add('Shougo/neosnippet.vim')
+ call dein#add('Shougo/neosnippet-snippets')
+
+ " Nerdtree file explorer
+ " TODO: check out Shougo/vimfiler
+ call dein#add('scrooloose/nerdTree')
+ call dein#add('Xuyuanp/nerdtree-git-plugin')
+
+ call dein#add('Raimondi/delimitMate')
+ 
+ " HTML
+ call dein#add('othree/html5.vim')
+ call dein#add('alvan/vimclosetag')
+
+ call dein#add('hail2u/vim-css3-syntax')
+ call dein#add('othree/csscomplete.vim')
 
  call dein#end()
  call dein#save_state()
 endif
 
-" let deoplete#enable_at_startup=1
-
+let deoplete#enable_at_startup=1
 filetype plugin indent on
+syntax on
 syntax enable
+
 
 " mouse
 set mouse=a
+
+" spellcheck 
+set spell
 
 " hi i'm blind
 colorscheme materialbox
@@ -103,7 +129,9 @@ let g:ale_fixers = {}
 
 " Language specific settings
 " call ale#Set('javascript_prettier_standard_options', '')
-let g:ale_linters["javascript"] = ["tsserver", "eslint-react"]
+let g:ale_linters["javascript"] = ['javascript-typescript-langserver']
+let g:ale_linters["javascript.jsx"] = ['javascript-typescript-langserver']
+"[tsserver, eslint-react]
 let g:ale_fixers["javascript"] = ["prettier-standard", "eslint"]
 
 let g:ale_linters["python"] = ["pyls"] "flake8
@@ -148,75 +176,57 @@ let g:rainbow_conf = {
 	\	}
 	\}
  
-" autocmd FileType defx call s:defx_my_settings()
-" function! s:defx_my_settings() abort
-"    " Defx keys. TODO: fuck with this some
-"     nnoremap <silent><buffer><expr> <CR>
-"           \ defx#do_action('drop')
-"     nnoremap <silent><buffer><expr> c
-"    \ defx#do_action('copy')
-"    nnoremap <silent><buffer><expr> m
- "     \ defx#do_action('move')
- "     nnoremap <silent><buffer><expr> p
- "     \ defx#do_action('paste')
- "     nnoremap <silent><buffer><expr> l
- "     \ defx#do_action('open')
- "     nnoremap <silent><buffer><expr> E
- "     \ defx#do_action('open', 'vsplit')
- "     nnoremap <silent><buffer><expr> P
- "     \ defx#do_action('open', 'pedit')
- "     nnoremap <silent><buffer><expr> K
- "     \ defx#do_action('new_directory')
- "     nnoremap <silent><buffer><expr> N
- "     \ defx#do_action('new_file')
- "     nnoremap <silent><buffer><expr> M
- "     \ defx#do_action('new_multiple_files')
- "     nnoremap <silent><buffer><expr> d
- "     \ defx#do_action('remove')
- "     nnoremap <silent><buffer><expr> r
- "     \ defx#do_action('rename')
- "     nnoremap <silent><buffer><expr> !
- "     \ defx#do_action('execute_command')
- "     nnoremap <silent><buffer><expr> x
- "     \ defx#do_action('execute_system')
- "     nnoremap <silent><buffer><expr> yy
- "     \ defx#do_action('yank_path')
- "     nnoremap <silent><buffer><expr> .
- "     \ defx#do_action('toggle_ignored_files')
- "     nnoremap <silent><buffer><expr> ;
- "     \ defx#do_action('repeat')
- "     nnoremap <silent><buffer><expr> h
- "     \ defx#do_action('cd', ['..'])
- "     nnoremap <silent><buffer><expr> ~
- "     \ defx#do_action('cd')
- "     nnoremap <silent><buffer><expr> q
- "     \ defx#do_action('quit')
- "     nnoremap <silent><buffer><expr> <Space>
- "     \ defx#do_action('toggle_select') . 'j'
- "     nnoremap <silent><buffer><expr> *
- "     \ defx#do_action('toggle_select_all')
- "     nnoremap <silent><buffer><expr> j
- "     \ line('.') == line('$') ? 'gg' : 'j'
- "     nnoremap <silent><buffer><expr> k
- "     \ line('.') == 1 ? 'G' : 'k'
- "     nnoremap <silent><buffer><expr> <C-l>
- "     \ defx#do_action('redraw')
- "     nnoremap <silent><buffer><expr> <C-g>
- "     \ defx#do_action('print')
- "     nnoremap <silent><buffer><expr> cd
- "     \ defx#do_action('change_vim_cwd')
- " endfunction
- " au BufNewFile,BufRead netrw set filetype=defx
+" neosnippits:
+imap <C-K> <Plug>(neosnippet_expand_or_jump)
+smap <C-K> <Plug>(neosnippet_expand_or_jump)
+xmap <C-K> <Plug>(neosnippet_expand_target)
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+let g:neosnippet#snippets_directory='/home/redcartel/dotfiles/vim/snippets'
+
+filetype plugin indent on
+syntax enable
+
+" nerdtree
+nmap <Leader>N :NERDTreeToggle<CR>
+
+" from https://www.reddit.com/r/neovim/comments/85li8k/current_state_javascript_and_nvim/
+
+set wildmenu
+set cursorcolumn
+set ruler
+set scrolloff=2
+set history=1000
+set splitright
+set autowrite
+set autoread
+set showcmd
+set matchtime=3
+
+map <C-l> <C-W>l<C-W>
+map <C-h> <C-W>h<C-W>
+map <C-j> <C-W>j<C-W>
+map <C-k> <C-W>k<C-W>
 
 
-" let g:ale_linters["markdown"] = ["write-good"]
-" let g:ale_fixers["markdown"] = ["prettier"]
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_check_on_w = 0
-" let g:syntastic_mode_map = { "mode": "passive" }
-" let g:syntastic_python_checkers = ['pylint']
-
+let g:js_context_colors_enabled=1
+let g:js_context_colors=1
+let g:js_context_colors_insertmode=1
+let g:js_context_colors_usemaps=1
+let g:js_context_colors_colorize_comments=1
+let g:js_context_colors_comment_higroup=1
+let g:js_context_colors_debug=0
+let g:js_context_colors_highlight_function_names=1
+" let g:js_context_colors_es5=1
+let g:js_context_colors_block_scope=1
+let g:js_context_colors_block_scope_with_let=1
+let g:js_context_colors_jsx=1
+let g:js_context_colors_fold=1
+let g:js_context_colors_folding=1
+let g:js_context_colors_allow_jsx_syntax=1

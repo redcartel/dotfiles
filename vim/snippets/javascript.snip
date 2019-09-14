@@ -1,0 +1,46 @@
+snippet react-functional-component
+abbr    rfc
+options word
+  
+  import React from 'react';
+
+  export default function ${1:#:function_name}(props) {
+    
+    return (
+        <div className="${1:#:function_name}">
+        </div>
+    );
+  }
+
+snippet react-functional-component-imports
+abbr    rfci
+options word
+  
+  import React, {useState} from 'react';
+  import {Link} from 'react-router-dom';
+  // import MyComp from './MyComp';
+
+  export default function ${1:#:function_name}(props) {
+    
+    return (
+        <div className="${1:#:function_name}">
+        </div>
+    );
+  }
+
+snippet react-routing-component
+abbr rrc
+
+    import React from 'react';
+    import {Switch, Route} from 'react-router-dom';
+    // import Home from './Home';
+
+    export default function ${1:#:function_name}(props) {
+        return (
+            <Switch>
+                <Route exact path="/" render={(_props)=>
+                    <Home {..._props} />
+                }/>
+            </Switch>
+        );
+    }

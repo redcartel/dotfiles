@@ -207,14 +207,16 @@ function set_bash_prompt () {
 
   # Set the bash prompt variable.
   PS1="${PYTHON_VIRTUALENV}${GREEN}\w${COLOR_NONE}${BRANCH}
-${PROMPT_SYMBOL} "
+ ($(cat /home/redcartel/Documents/TODO.md | wc -l)) ${PROMPT_SYMBOL} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
 PROMPT_COMMAND=set_bash_prompt
 
-export PATH=/home/redcartel/binfiles:/home/redcartel/installers/bin:$PATH
+export PATH=/home/redcartel/binfiles:/snap/bin:/home/redcartel/installers/bin:$PATH
 source ~/binfiles/alias.sh
+
 export FLASK_DEBUG=1
+
 export HISTSIZE=1000000000
 
