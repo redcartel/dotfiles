@@ -2,11 +2,24 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+if [ -z $BASHRC_RUN ]; then
+    export BASHRC_RUN=1
+else
+    exit
+fi
+alias flushrc="unset BASHRC_RUN"
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+# only run .profile once, even if in sub-shell
+# fixes problems with growing $PROMPT
+if [ -z $PROFILE_RUN ]; then
+    . ~/.profile
+fi
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -16,8 +29,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=50000
+HISTFILESIZE=50000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -79,29 +92,10 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-# CARTER: alias file at end of .bashrc
-
-# if [ -f ~/.bash_aliases ]; then
-#   . ~/.bash_aliases
-# fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -114,109 +108,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-#!/bin/bash
-#
-# DESCRIPTION:
-#
-#   Set the bash prompt according to:
-#    * the active virtualenv
-#    * the branch of the current git/mercurial repository
-#    * the return value of the previous command
-#    * the fact you just came from Windows and are used to having newlines in
-#      your prompts.
-#
-# USAGE:
-#
-#   1. Save this file as ~/.bash_prompt
-#   2. Add the following line to the end of your ~/.bashrc or ~/.bash_profile:
-#        . ~/.bash_prompt
-#
-# LINEAGE:
-#
-#   Based on work by woods
-#
-#   https://gist.github.com/31967
-
-# The various escape codes that we can use to color our prompt.
-        RED="\[\033[0;31m\]"
-     YELLOW="\[\033[1;33m\]"
-      GREEN="\[\033[0;32m\]"
-       BLUE="\[\033[1;34m\]"
-     PURPLE="\[\033[0;35m\]"
-  LIGHT_RED="\[\033[1;31m\]"
-LIGHT_GREEN="\[\033[1;32m\]"
-      WHITE="\[\033[1;37m\]"
- LIGHT_GRAY="\[\033[0;37m\]"
- COLOR_NONE="\[\e[0m\]"
-
-# determine git branch name
-function parse_git_branch(){
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-# determine mercurial branch name
-function parse_hg_branch(){
-  hg branch 2> /dev/null | awk '{print " (" $1 ")"}'
-}
-
-# Determine the branch/state information for this git repository.
-function set_git_branch() {
-  # Get the name of the branch.
-  branch=$(parse_git_branch)
-  # if not git then maybe mercurial
-  if [ "$branch" == "" ]
-  then
-    branch=$(parse_hg_branch)
-  fi
-
-  # Set the final branch string.
-  BRANCH="${PURPLE}${branch}${COLOR_NONE} "
-}
-
-# Return the prompt symbol to use, colorized based on the return value of the
-# previous command.
-function set_prompt_symbol () {
-  if test $1 -eq 0 ; then
-      PROMPT_SYMBOL="\$"
-  else
-      PROMPT_SYMBOL="${LIGHT_RED}\$${COLOR_NONE}"
-  fi
-}
-
-# Determine active Python virtualenv details.
-function set_virtualenv () {
-  if test -z "$VIRTUAL_ENV" ; then
-      PYTHON_VIRTUALENV=""
-  else
-      PYTHON_VIRTUALENV="${BLUE}[`basename \"$VIRTUAL_ENV\"`]${COLOR_NONE} "
-  fi
-}
-
-# Set the full bash prompt.
-function set_bash_prompt () {
-  # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
-  # return value of the last command.
-  set_prompt_symbol $?
-
-  # Set the PYTHON_VIRTUALENV variable.
-  set_virtualenv
-
-  # Set the BRANCH variable.
-  set_git_branch
-
-  # Set the bash prompt variable.
-  PS1="${PYTHON_VIRTUALENV}${GREEN}\w${COLOR_NONE}${BRANCH}
- ($(cat /home/redcartel/Documents/TODO.md | wc -l)) ${PROMPT_SYMBOL} "
-}
-
-# Tell bash to execute this function just before displaying its prompt.
-PROMPT_COMMAND=set_bash_prompt
-
-export PATH=/home/redcartel/binfiles:/snap/bin:/home/redcartel/installers/bin:$PATH
-source ~/binfiles/alias.sh
+if [ -f $HOME/binfiles/alias.sh ]; then
+    . $HOME/binfiles/alias.sh
+fi
+if [ -f $HOME/binfiles/bash_prompt.sh ]; then
+    . $HOME/binfiles/bash_prompt.sh
+fi
 
 export FLASK_DEBUG=1
-
-export HISTSIZE=1000000000
-

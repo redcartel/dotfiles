@@ -11,62 +11,80 @@ if dein#load_state('~/.cache/dein')
 
  call dein#add('tpope/vim-sensible')
  " sensible defaults (?needed for nvim?, eh, don't mess with success) 
+ 
  call dein#add('Shougo/deoplete.nvim')
  " autocompletion
+ 
+ 
  call dein#add('w0rp/ALE')                                  
  " langserver, linter, formatter etc.
- "call dein#add('autozimu/LanguageClient-neovim')
- " langserver
- call dein#add('dhruvasagar/vim-buffer-history')            
- " forward / back in buffer open history (alt + lr arrows) 
+ 
  call dein#add('tpope/vim-fugitive')                        
  " git integration
+ 
  call dein#add('airblade/vim-gitgutter')                    
  " note file changes in gutter
- call dein#add('mkarmona/materialbox')                      
+ 
+ "call dein#add('mkarmona/materialbox')                      
  " color scheme
+ 
  call dein#add('vim-airline/vim-airline')                   
  " cool status bar
+ 
  call dein#add('vim-airline/vim-airline-themes')            
  " themes for above
+ 
  call dein#add('ryanoasis/vim-devicons')                    
  " nerdfonts symbols
- call dein#add('luochen1990/rainbow')                       
- " rainbow perens etc.
+ 
  call dein#add('nathanaelkane/vim-indent-guides')           
  " indent level highlighting
+ 
  call dein#add('farmergreg/vim-lastplace')                  
  " start editing at last edit point
+ 
  call dein#add('othree/yajs')
- call dein#add('neoclide/vim-jsx-improve')
+ call dein#add('mxw/vim-jsx')
+ " call dein#add('neoclide/vim-jsx-improve')
+ " call dein#add('pangloss/vim-javascript')
  " javascript & jsx highlighting
+ 
  call dein#add('Glench/Vim-Jinja2-Syntax')                  
- call dein#add('pangloss/vim-javascript')
- call dein#add('sourcegraph/javascrpt-typescript-langserver')
+ " jinja2 templates
+ 
+ call dein#add('sourcegraph/javascript-typescript-langserver')
  call dein#add('vscode-langservers/vscode-css-languageserver-bin')
  " TODO: jest w cragdallimore/vim-jest-cli
 
- " highlight {% jinja %} shit in .html files
- "call dein#add('janko-m/vim-test')                        
- " unit testing automation
- call dein#add('redcartel/Redrc.vim')                        " my .vimrc
- " Shougo neosnippit.vim
  call dein#add('Shougo/neosnippet.vim')
  call dein#add('Shougo/neosnippet-snippets')
-
- " Nerdtree file explorer
- " TODO: check out Shougo/vimfiler
+ " snippets
+ 
  call dein#add('scrooloose/nerdTree')
  call dein#add('Xuyuanp/nerdtree-git-plugin')
-
- call dein#add('Raimondi/delimitMate')
+ " Nerdtree
+ " TODO: check out Shougo/vimfiler
  
- " HTML
+ call dein#add('Raimondi/delimitMate')
+ " insert autocomplete perens etc.
+ 
  call dein#add('othree/html5.vim')
- call dein#add('alvan/vimclosetag')
-
+ call dein#add('alvan/vim-closetag')
  call dein#add('hail2u/vim-css3-syntax')
  call dein#add('othree/csscomplete.vim')
+ " HTML
+
+ " call dein#add('sheerun/vim-polyglot')
+ " better highlighting
+
+ call dein#add('joshdick/onedark.vim')
+ " colorscheme
+ 
+ call dein#add('luochen1990/rainbow')                       
+ " rainbow perens etc.
+ 
+ call dein#add('redcartel/Redrc.vim')
+ " my .vimrc
 
  call dein#end()
  call dein#save_state()
@@ -77,7 +95,6 @@ filetype plugin indent on
 syntax on
 syntax enable
 
-
 " mouse
 set mouse=a
 
@@ -85,7 +102,15 @@ set mouse=a
 set spell
 
 " hi i'm blind
-colorscheme materialbox
+set termguicolors
+let g:onedark_color_overrides = {
+\ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0" },
+\ "purple": { "gui": "#C678DF", "cterm": "170", "cterm16": "5" },
+\ "comment_grey": { "gui": "#af005f", "cterm": "125", "cterm16": "5"},
+\ "gutter_fg_grey": { "gui": "#afd700", "cterm": "148", "cterm16": "11"},
+\ "white": { "gui": "#ffffff", "cterm": "15", "cterm16": "15"}
+\}
+colorscheme onedark 
 set background=dark
 
 " i don't use macros or ex mode
@@ -99,16 +124,17 @@ vmap > >gv
 " be higher contrast
 :highlight Normal ctermfg=white ctermbg=232 
 
-" Alt+arrows moves through buffer history
-" set hidden
-nmap <M-LEFT> gbp
-nmap <M-RIGHT> gbn
+nmap <M-Right> <esc>:bn<cr>
+nmap <M-Left> <esc>:bp<cr>
 
 " turn on indent guides
 let g:indent_guides_enable_on_vim_startup = 1
+
+" airline settings
 let g:airline_powerline_fonts = 1
-let g:airline_theme="zenburn"
+let g:airline_theme="sol"
 let g:airline#extensions#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " ALE settings (asynchonous linting, langserver)
 let g:ale_completion_enabled = 1
@@ -128,11 +154,17 @@ let g:ale_linters = {}
 let g:ale_fixers = {}
 
 " Language specific settings
-" call ale#Set('javascript_prettier_standard_options', '')
-let g:ale_linters["javascript"] = ['javascript-typescript-langserver']
-let g:ale_linters["javascript.jsx"] = ['javascript-typescript-langserver']
+
+" Language specific settings
+call ale#Set('javascript_prettier_standard_options', '')
+let g:ale_linters["javascript"] = ["tsserver", "eslint"]
+let g:ale_fixers["javascript"] = ["prettier-standard"]
+
+"all ale#Set('javascript_prettier_standard_options', '')
+"let g:ale_linters["javascript"] = ['javascript-typescript-langserver']
+"let g:ale_linters["javascript.jsx"] = ['javascript-typescript-langserver']
 "[tsserver, eslint-react]
-let g:ale_fixers["javascript"] = ["prettier-standard", "eslint"]
+"let g:ale_fixers["javascript"] = ["prettier-standard", "eslint"]
 
 let g:ale_linters["python"] = ["pyls"] "flake8
 let g:ale_fixers["python"] = ["autopep8", "yapf"]
@@ -145,10 +177,10 @@ let g:ale_fixers["html"] = ["prettier"]
 let g:ale_fixers["htmldjango"] = ["prettier"]
 let g:ale_fixers["json"] = ["prettier"]
 
-nnoremap <Leader>K <Plug>(ale_previous_wrap)
-nnoremap <Leader>J <Plug>(ale_next_wrap)
-nnoremap <Leader>D :ALEGoToDefinition<CR>
-nnoremap <Leader>F <Plug>(ale_find_references)
+nnoremap <M-k> <Plug>(ale_previous_wrap)
+nnoremap <M-j> <Plug>(ale_next_wrap)
+nnoremap <Leader>d :ALEGoToDefinition<CR>
+nnoremap <Leader>f <Plug>(ale_find_references)
 nmap     <Leader>H <Plug>(ale_hover)
 
 " rainbow perens
@@ -194,7 +226,7 @@ filetype plugin indent on
 syntax enable
 
 " nerdtree
-nmap <Leader>N :NERDTreeToggle<CR>
+nmap <Leader>n :set hidden<CR>:NERDTreeToggle<CR>
 
 " from https://www.reddit.com/r/neovim/comments/85li8k/current_state_javascript_and_nvim/
 
@@ -209,24 +241,24 @@ set autoread
 set showcmd
 set matchtime=3
 
-map <C-l> <C-W>l<C-W>
-map <C-h> <C-W>h<C-W>
-map <C-j> <C-W>j<C-W>
-map <C-k> <C-W>k<C-W>
+map <C-Right> <C-W>l<C-W>
+map <C-Left> <C-W>h<C-W>
+map <C-Down> <C-W>j<C-W>
+map <C-Up> <C-W>k<C-W>
 
-
-let g:js_context_colors_enabled=1
-let g:js_context_colors=1
-let g:js_context_colors_insertmode=1
-let g:js_context_colors_usemaps=1
-let g:js_context_colors_colorize_comments=1
-let g:js_context_colors_comment_higroup=1
-let g:js_context_colors_debug=0
-let g:js_context_colors_highlight_function_names=1
-" let g:js_context_colors_es5=1
-let g:js_context_colors_block_scope=1
-let g:js_context_colors_block_scope_with_let=1
-let g:js_context_colors_jsx=1
-let g:js_context_colors_fold=1
-let g:js_context_colors_folding=1
-let g:js_context_colors_allow_jsx_syntax=1
+"let g:jsx_ext_required=0
+"let g:js_context_colors_enabled=1
+"let g:js_context_colors=1
+"let g:js_context_colors_insertmode=1
+"let g:js_context_colors_usemaps=1
+"let g:js_context_colors_colorize_comments=1
+"let g:js_context_colors_comment_higroup=1
+"let g:js_context_colors_debug=0
+"let g:js_context_colors_highlight_function_names=1
+"" let g:js_context_colors_es5=1
+"let g:js_context_colors_block_scope=1
+"let g:js_context_colors_block_scope_with_let=1
+"let g:js_context_colors_jsx=1
+"let g:js_context_colors_fold=1
+"let g:js_context_colors_folding=1
+"let g:js_context_colors_allow_jsx_syntax=1
