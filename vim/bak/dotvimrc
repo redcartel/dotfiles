@@ -1,7 +1,0 @@
-if has('gui_running')
-    source ~/dotfiles/vim/gvimrc.vim
-    let gvimrc = "loaded"
-else
-    source ~/dotfiles/vim/vimrc.vim
-    let vimrc = "loaded"
-endif

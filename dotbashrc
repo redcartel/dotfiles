@@ -116,3 +116,5 @@ if [ -f $HOME/binfiles/bash_prompt.sh ]; then
 fi
 
 export FLASK_DEBUG=1
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

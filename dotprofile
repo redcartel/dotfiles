@@ -19,7 +19,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-export PATH=/home/redcartel/binfiles:/snap/bin:/home/redcartel/installers/bin:$PATH
+export PATH=/home/redcartel/binfiles:/snap/bin:/home/redcartel/installers/bin:/home/redcartel/.local/bin:$PATH
 
 # set PATH so it includes user's private bin if it exists
 #if [ -d "$HOME/bin" ] ; then
