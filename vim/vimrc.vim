@@ -8,15 +8,12 @@ Plugin 'tpope/vim-sensible'                     "   + tpope's sensible defaults
 Plugin 'redcartel/Redrc.vim'                    "   + my own herbs and spices
 Plugin 'vim-lastplace'                          " cursor stars where you left
                                                 "   off
-if has("gui_running")
                                                 " i use gvim as basically
                                                 " notepad. neovim is my ide
                                                 " vim
-else
-    Plugin 'Glench/Vim-Jinja2-Syntax'           " flask template syntax
-    Plugin 'vim-syntastic/syntastic'            " syntax checker
-    Plugin 'luochen1990/rainbow'                " rainbow perens / braces 
-endif
+Plugin 'Glench/Vim-Jinja2-Syntax'           " flask template syntax
+Plugin 'vim-syntastic/syntastic'            " syntax checker
+Plugin 'luochen1990/rainbow'                " rainbow perens / braces 
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -44,9 +41,10 @@ else
     let g:syntastic_auto_loc_list = 1
     let g:syntastic_check_on_open = 0
     let g:syntastic_check_on_wq = 0
-    let g:syntastic_check_on_w = 0
-    let g:syntastic_mode_map = { "mode": "passive" }
+    let g:syntastic_check_on_w = 1
+    let g:syntastic_mode_map = { "mode": "passive", "active_filetypes": ['python']}
     let g:syntastic_python_checkers = ['pylint']
+    let g:syntastic_python_pylint_args = '-E'
     let g:syntastic_javascript_checkers = ['eslint']
 
     " jinja template highlighting by default for .html
