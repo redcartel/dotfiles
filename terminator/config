@@ -1,0 +1,104 @@
+[global_config]
+  focus = mouse
+  borderless = True
+  title_transmit_fg_color = "#eeeeff"
+  title_transmit_bg_color = "#5c3566"
+  title_use_system_font = False
+  title_font = Sans 12
+[keybindings]
+  zoom_in = <Primary><Shift>plus
+  zoom_out = <Primary><Shift>underscore
+  zoom_normal = <Primary><Shift>parenright
+  new_tab = None
+  cycle_next = None
+  cycle_prev = None
+  go_next = None
+  go_prev = None
+  go_down = None
+  go_left = None
+  go_right = None
+  rotate_cw = None
+  rotate_ccw = None
+  split_horiz = None
+  split_vert = None
+  close_term = None
+  copy = <Primary><Shift>c
+  toggle_scrollbar = None
+  search = None
+  page_up_half = <Primary><Shift>Page_Up
+  page_down_half = <Primary><Shift>Page_Down
+  line_up = None
+  line_down = None
+  close_window = None
+  resize_up = None
+  resize_down = None
+  resize_left = None
+  resize_right = None
+  move_tab_right = None
+  move_tab_left = None
+  toggle_zoom = None
+  scaled_zoom = None
+  next_tab = None
+  prev_tab = None
+  full_screen = None
+  reset = None
+  reset_clear = <Primary><Shift>r
+  hide_window = None
+  group_all = None
+  group_all_toggle = None
+  ungroup_all = None
+  group_tab = None
+  group_tab_toggle = None
+  ungroup_tab = None
+  new_window = None
+  new_terminator = None
+  broadcast_off = None
+  broadcast_group = None
+  broadcast_all = None
+  insert_number = None
+  insert_padded = None
+  edit_window_title = None
+  edit_tab_title = None
+  edit_terminal_title = None
+  layout_launcher = None
+  next_profile = <Primary><Shift>p
+  previous_profile = <Primary><Shift>o
+  help = WakeUp
+[profiles]
+  [[default]]
+    cursor_color = "#aaffaa"
+    font = DejaVuSansMono Nerd Font Mono 14
+    foreground_color = "#ffffff"
+    scrollback_lines = 65536
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#8888ff:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
+    use_system_font = False
+  [[big]]
+    cursor_color = "#aaffaa"
+    font = DejaVuSansMono Nerd Font Mono 18
+    foreground_color = "#ffffff"
+    scrollback_lines = 65536
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#8888ff:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
+    use_system_font = False
+  [[huge]]
+    cursor_color = "#aaffaa"
+    font = DejaVuSansMono Nerd Font Mono 22
+    foreground_color = "#ffffff"
+    scrollback_lines = 65536
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#8888ff:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
+    use_system_font = False
+  [[small]]
+    cursor_color = "#aaffaa"
+    font = DejaVuSansMono Nerd Font Mono 11
+    foreground_color = "#ffffff"
+    scrollback_lines = 65536
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#8888ff:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]
