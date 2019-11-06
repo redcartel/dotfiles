@@ -13,6 +13,8 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
+        "eslint:recommended",
+        "prettier",
         "react"
     ],
     "rules": {
@@ -31,6 +33,7 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "prettier/prettier": "error"
     }
 };

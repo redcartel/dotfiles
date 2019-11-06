@@ -5,35 +5,31 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'                   " plugin manager
 Plugin 'tpope/vim-sensible'                     "   + tpope's sensible defaults
-Plugin 'redcartel/Redrc.vim'                    "   + my own herbs and spices
 Plugin 'vim-lastplace'                          " cursor stars where you left
-                                                "   off
-                                                " i use gvim as basically
-                                                " notepad. neovim is my ide
-                                                " vim
-Plugin 'Glench/Vim-Jinja2-Syntax'           " flask template syntax
-Plugin 'vim-syntastic/syntastic'            " syntax checker
-Plugin 'luochen1990/rainbow'                " rainbow perens / braces 
+if has("gui_running")
+    "gvim plugins
+else
+    "curses vim plugins
+    Plugin 'Glench/Vim-Jinja2-Syntax'           " flask template syntax
+    Plugin 'vim-syntastic/syntastic'            " syntax checker
+    Plugin 'luochen1990/rainbow'                " rainbow perens / braces 
+endif    
+Plugin 'redcartel/Redrc.vim'                    "   + my own herbs and spices
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 if has("gui_running")
-    " specific settings for gvim graphical display
-    set nonumber
-    " MS-DOS Wordperfect circa 1990 looking motherfucker
+    " gvim appearance
     colorscheme blue
-    " No shortcut icons or other bullshit. Keep the menus though. 
     set guioptions-=T
     set guioptions-=r
     set guioptions-=L
-
-    " Hi, I'm fucking blind
     set guifont=Monaco\ 20
 else
     " specific settings for plugins in curses vim
     " leader+s checks file's syntax
-    nmap <Leader>S :SyntasticCheck<CR>
+    nmap <Leader>st :SyntasticToggleMode<CR>
 
     " syntastic settings: does not run automatically
     let g:airline_powerline_fonts = 1
@@ -42,7 +38,7 @@ else
     let g:syntastic_check_on_open = 0
     let g:syntastic_check_on_wq = 0
     let g:syntastic_check_on_w = 1
-    let g:syntastic_mode_map = { "mode": "passive", "active_filetypes": ['python']}
+    let g:syntastic_mode_map = { "mode": "passive" }
     let g:syntastic_python_checkers = ['pylint']
     let g:syntastic_python_pylint_args = '-E'
     let g:syntastic_javascript_checkers = ['eslint']

@@ -1,5 +1,7 @@
 #! /bin/sh
 
+apt install i3 dmenu
+apt install gnome-flashback gnome-session-flashback
 apt install chromium-browser
 apt install ffmpeg
 apt install nemo
