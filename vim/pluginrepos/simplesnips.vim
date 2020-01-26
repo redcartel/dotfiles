@@ -1,0 +1,1 @@
+/home/redcartel/.cache/dein/repos/github.com/redcartel/simplesnips.vim

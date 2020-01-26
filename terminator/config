@@ -1,6 +1,7 @@
 [global_config]
   focus = mouse
   borderless = True
+  hide_on_lose_focus = True
   title_transmit_fg_color = "#eeeeff"
   title_transmit_bg_color = "#5c3566"
   title_use_system_font = False
@@ -74,7 +75,7 @@
     use_system_font = False
   [[big]]
     cursor_color = "#aaffaa"
-    font = DejaVuSansMono Nerd Font Mono 18
+    font = DejaVuSansMono Nerd Font Mono 16
     foreground_color = "#ffffff"
     scrollback_lines = 65536
     palette = "#000000:#cd0000:#00cd00:#cdcd00:#8888ff:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"

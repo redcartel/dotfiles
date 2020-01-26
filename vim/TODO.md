@@ -1,1 +1,2 @@
-Get nvim dein loading from local path to .vim/bundle
+Change simplesnips to not use syntax-breaking templates
+maybe __simp__FileSlug

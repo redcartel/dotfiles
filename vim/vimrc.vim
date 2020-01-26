@@ -3,46 +3,38 @@ filetype off                  " Vundle requirement
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'                   " plugin manager
-Plugin 'tpope/vim-sensible'                     "   + tpope's sensible defaults
-Plugin 'vim-lastplace'                          " cursor stars where you left
+" plugin manager
+    Plugin 'VundleVim/Vundle.vim'
+" sensible defaults, is this still needed in 2020? don't mess with success
+    Plugin 'tpope/vim-sensible'                   
+" open file at the last place I was editing, the one plugin I always use
+    Plugin 'farmergreg/vim-lastplace'           
+
 if has("gui_running")
-    "gvim plugins
+    " Goal is for gvim to be Notepad, basically
 else
-    "curses vim plugins
-    Plugin 'Glench/Vim-Jinja2-Syntax'           " flask template syntax
-    Plugin 'vim-syntastic/syntastic'            " syntax checker
-    Plugin 'luochen1990/rainbow'                " rainbow perens / braces 
+    " Goal is for vim to be a lightweight code editor. Nothing too heavy.
+    " Nothing that changes the default behavior too much.
+
+    " my own snippits plugin
+    Plugin 'redcartel/simplesnips.vim'
+    " adds gc command to comment lines
+    Plugin 'tpope/vim-commentary'
+    " improved syntax highlighting
+    Plugin 'sheerun/vim-polyglot'
+    " git commands in vim
+    Plugin 'tpope/vim-fugitive'                        
+    " indications of changed lines to the side
+    Plugin 'airblade/vim-gitgutter'
+    " css3
+    Plugin 'hail2u/vim-css3-syntax'
+    " linter. autolinting turned off in Redrc
+    Plugin 'vim-syntastic/syntastic'
+    " rainbow parentheses
+    Plugin 'luochen1990/rainbow'
 endif    
-Plugin 'redcartel/Redrc.vim'                    "   + my own herbs and spices
+
+Plugin 'redcartel/Redrc.vim' " my own herbs and spices
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-
-if has("gui_running")
-    " gvim appearance
-    colorscheme blue
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
-    set guifont=Monaco\ 20
-else
-    " specific settings for plugins in curses vim
-    " leader+s checks file's syntax
-    nmap <Leader>st :SyntasticToggleMode<CR>
-
-    " syntastic settings: does not run automatically
-    let g:airline_powerline_fonts = 1
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 0
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_check_on_w = 1
-    let g:syntastic_mode_map = { "mode": "passive" }
-    let g:syntastic_python_checkers = ['pylint']
-    let g:syntastic_python_pylint_args = '-E'
-    let g:syntastic_javascript_checkers = ['eslint']
-
-    " jinja template highlighting by default for .html
-    au BufNewFile,BufRead *.html set filetype=htmldjango
-endif

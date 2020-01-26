@@ -1,9 +1,9 @@
 Name               Version                     Rev   Tracking  Publisher   Notes
-chromium           78.0.3904.70                920   stable    canonical*  -
-code               6ab59852                    18    stable    vscode*     classic
-core               16-2.42                     7917  stable    canonical*  core
+chromium           78.0.3904.97                937   stable    canonical*  -
+code               86405ea2                    19    stable    vscode*     classic
+core               16-2.42.1                   8039  stable    canonical*  core
 core18             20191030                    1265  stable    canonical*  base
-gitkraken          6.3.0                       145   stable    gitkraken*  -
+gitkraken          6.3.1                       146   stable    gitkraken*  -
 gnome-3-28-1804    3.28.0-14-g9303a49.9303a49  91    stable/…  canonical*  -
 gnome-calculator   3.34.1+git1.d34dc842        544   stable/…  canonical*  -
 gnome-characters   v3.32.1+git2.3367201        359   stable/…  canonical*  -
