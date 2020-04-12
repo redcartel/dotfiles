@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=i3 & Gnome Flashback Panel
-Comment=This session logs you into GNOME Flashback with Metacity
-Exec=export LAUNCH_FLASHBACK=1 && i3
-TryExec=i3
-Type=Application
-DesktopNames=GNOME-Flashback;GNOME;
-X-Ubuntu-Gettext-Domain=gnome-flashback

@@ -113,6 +113,7 @@ endfun
 " why does \bd close OTHER buffs and not this one? I dunno, makes sense to my
 " fingers
 nmap <Leader>bd <esc>:call CloseOtherSavedBuffs()<cr>
+command! Cb <esc>:call CloseOtherSavedBuffs()<cr>
 nmap <Leader>Q <esc>:call CloseOtherSavedBuffs() \| qa<CR>
 
 
