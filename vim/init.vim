@@ -1,5 +1,25 @@
 " TODO: Write README, python language server
 
+" CHEATSHEET
+" \ = <leader>
+" \t              : Toggle NERDTree and set hidden
+" M-left, M-right : next / prev buffer
+" :Cb             : close windows and saved buffers except the current one
+" :Sn <tab complete> : insert simplesnip
+" gc              : comment / uncoment
+"
+" g[, g]          : go to next / prev langserver linting error
+" gd              : go to definition
+" gy              : go to type definition
+" gi              : go to implementation
+" gr              : go to references 
+" K               : show documentation
+" \rn             : rename TODO 
+" \fm             : format file or vis selection
+" \a              : diagnostics (see errors)
+
+
+
 call plug#begin(stdpath('data') . '/plugged')
  
  " IDE STYLE PRESENTATION:
@@ -8,7 +28,7 @@ call plug#begin(stdpath('data') . '/plugged')
  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
  Plug 'Xuyuanp/nerdtree-git-plugin'
 
- " list open buffers on tabline ctrl-[ and ctrl-] prev/next buffer
+ " show buffers on tabline 
  Plug 'ap/vim-buftabline'
  
  " git integration, see docs
@@ -17,8 +37,8 @@ call plug#begin(stdpath('data') . '/plugged')
  
  " syntax highlighting
  "Plug 'pangloss/vim-javascript'
- Plug 'sheerun/vim-polyglot'
- Plug 'mxw/vim-jsx'
+ "Plug 'sheerun/vim-polyglot'
+ Plug 'mxw/vim-jsx-improve'
 
  " POWER TOOLS: langserver, integrated testing, TODO: debugger
 
@@ -71,6 +91,7 @@ endfun
 
 command! Cb call CloseOtherSavedBuffs()
 
+nmap <M-Up>:NERDTreeClose \| lcl \| ccl \| pc \| only
 nmap <Leader>t :NERDTreeToggle<CR>:set hidden<CR>
 nmap <M-Left> :bp<CR>
 nmap <M-Right> :bn<CR>

@@ -2,11 +2,21 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# MY CHANGES :
+
+# Set before bailing on non-interactive shells
+export PATH=$HOME/bin:$HOME/installers/bin:$PATH::
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+# disable ctrl-S etc.
+stty -ixon
+
+# END CHANGES :
+# Ubuntu defaults from here until source commands at end of file
+
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -116,5 +126,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=$HOME/bin:$HOME/installers/bin:$PATH::
-source $HOME/bin/alias.sh
+# END UBUNTU DEFAULTS
+# my aliases and prompt below
+# found in github redcartel/binfiles
+
+if [ -f $HOME/bin/alias.sh ]; then
+	. $HOME/bin/alias.sh
+fi
+if [ -f $HOME/bin/bash_prompt.sh ]; then
+	. $HOME/bin/bash_prompt.sh
+fi

@@ -1,15 +1,27 @@
 #   an i3wm configuration. Carter Adams. 2018 - the end of time
 #
 
-# designed for a combined gnome-flashback i3 session
+# expected packages: xdg-utils, terminator, brave-browser, ffmpeg, firefox 
 
 set $terminal terminator
-set $browser brave-browser
-set $ingognitobrowser brave-browser --incognito
-set $defaultfolder ~/FastFolder
-set $autolaunch bash ~/binfiles/startup
+set $fallback_terminal i3-sensible-terminal
 
-exec bash ~/binfiles/flashback-panel.sh
+set $browser brave-browser
+set $fallback_browser firefox
+
+set $incognito_browser "brave-browser --incognito"
+set $defaultfolder ~
+
+# mod+enter launches terminal (Terminator)
+bindsym $mod+Return exec $terminal
+# mod+Shift+enter launches default terminal
+bindsym $mod+Shift+Return exec $fallback_terminal
+# mod+c opens browser (Brave)
+bindsym $mod+c exec $browser
+# mod+Shift+c opens default browser 
+bindsym $mod+Shift+c exec $fallback_browser
+# mod+Shift+i opens browser (Brave) incognito
+bindsym $mod+Shift+i exec $incognito_browser
 
 # launch my startupscript
 exec $autolaunch
@@ -25,7 +37,7 @@ bar {
 }
 
 # swap escape and caps at launch (~/binfiles/swesc will do this too)
-exec /usr/bin/setxkbmap -option "caps:swapescape"
+# exec /usr/bin/setxkbmap -option "caps:swapescape"
 
 # font for window titles
 font pango:monospace 18
@@ -112,20 +124,10 @@ bindsym $mod+Shift+r restart
 
 # old i3-quit disabled for gnome-session-quit
 
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec gnome-session-quit
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Application launchers
 
-# mod+enter launches terminal
-bindsym $mod+Return exec $terminal
-# mod+u opens browser
-bindsym $mod+u exec $browser
-
-# mod+shift+enter launches gnome-terminal
-bindsym $mod+Shift+Return exec "gnome-terminal"
-# mod+Shift+u opens browser in incognito
-bindsym $mod+Shift+u $incognitobrowser
 # mod+Shift+b loads random background image
 bindsym $mod+Shift+b exec rbg
 # mod+Shift+f opens the file manager

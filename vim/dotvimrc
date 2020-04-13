@@ -1,35 +1,263 @@
-set nocompatible              " be iMproved, Vundle requirement
-filetype off                  " Vundle requirement
-"
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" plugin manager
-    Plugin 'VundleVim/Vundle.vim'
-"" sensible defaults, is this still needed in 2020? don't mess with success
-    Plugin 'tpope/vim-sensible'                   
-"" open file at the last place I was editing, the one plugin I always use
-    Plugin 'farmergreg/vim-lastplace'           
-"    " my own snippits plugin
-    Plugin 'redcartel/simplesnips.vim'
-"    " adds gc command to comment lines
-    Plugin 'tpope/vim-commentary'
-"    " improved syntax highlighting
-    Plugin 'sheerun/vim-polyglot'
-"    " git commands in vim
-    Plugin 'tpope/vim-fugitive'                        
-"    " indications of changed lines to the side
-    Plugin 'airblade/vim-gitgutter'
-"    " css3
-    Plugin 'hail2u/vim-css3-syntax'
-    " linter. autolinting turned off in Redrc
-     " Plugin 'vim-syntastic/syntastic'
-"    " rainbow parentheses
-    Plugin 'w0rp/ale'
-    Plugin 'luochen1990/rainbow'
-"endif    
-"
-    Plugin 'redcartel/Redrc.vim' " my own herbs and spices
-"
-call vundle#end()            " required
-filetype plugin indent on    " required
+" \ = <leader>
+" :Sn <tab complete> : insert simplesnip
+" gc              : comment / uncoment
 
+" g[, g],		  : go to next / prev langserver linting error	 
+" M-down, M-up 	  : go to next / prev langserver linting error
+" gd              : go to definition
+" gy              : go to type definition
+" gi              : go to implementation
+" gr              : go to references 
+" gh              : show documentation
+" ge              : diagnostics (list errors)
+" \rn             : rename  
+" \fm             : format file or vis selection
+" :TestSuite :TestFile :TestLast :TestVisit - running unit tests
+
+" ctrl+arrows 	  	: jump windows
+" ctrl+o			: close non editor windows, make editor the only win
+" gn				: open NERDTree, t to open file in new tab
+" M-left M-right	: navigate tabs
+" g1 g2				: jump to numbered tab (1-9)
+" g0				: jump to last tab
+
+" TOC
+" part 1: normal vimrc
+" part 2: custom functions & commands
+" part 3: packages
+" part 4: plugin settings
+" part 5: plugin dependant custom functions and commands
+" colorscheme at end of file
+
+" TODO: test vimrc on vim w/ minimal compile options (& no Vundle)
+
+" ===== part 1: normal vimrc =====
+
+" be improved
+set nocompatible 
+" poor man's vcs / file behavior
+set noswapfile
+
+set undofile
+set undodir=~/.vim/undo
+set history=10000
+set autoread
+" if available, mouse is on
+if has("mouse") | set mouse=a | endif
+"" If compiled with clipboard support, use system clipboard for yank & pull
+if has("clipboard") | set clipboard=unnamedplus | endif
+" use tabs for indents, default display is 4 characters
+set ts=4
+set sw=4
+set noexpandtab
+set autoindent
+if has("smartindent") | set smartindent | endif
+" display tabs as two characters for some filetypes
+if has("autocmd")
+	augroup specialindents
+		au FileType javascript setlocal sw=2 ts=2
+		au FileType json setlocal sw=2 ts=2
+		au FileType html setlocal ts=2 sw=2
+		au FileType jsx setlocal ts=2 sw=2
+		au FileType css setlocal ts=2 sw=2
+	augroup END
+endif
+" misc appearance and behavior
+set title
+set number
+set signcolumn=yes
+set laststatus=1
+if has("statusline") | set statusline+=%{coc#status()} | endif
+set ruler
+set colorcolumn=80
+set showcmd
+set showmatch
+set matchtime=3
+if has("wildmenu") | set wildmenu | endif
+set shortmess+=c
+set updatetime=300
+set scrolloff=2
+if has("termguicolors") | set termguicolors | endif
+" spellcheck off by default
+set nospell
+
+" ===== part 2: custom functions & commands =====
+
+" Vimrc edits .vimrc Svimrc 
+command! Vimrc edit ~/.vimrc
+command! Svimrc source ~/.vimrc
+
+"" no ex mode or macros
+nnoremap Q <nop>
+map q <nop>
+
+" ctrl S/Q/W work like normal, must have this in bashrc (what I put up top):
+
+" #! /bin/bash
+" #PATH=			# might want to set PATH here so all shells get it
+" case $- in 		# exit bashrc for non-interactive shell
+"    *i*) ;;
+"      *) return;;
+" esac
+" stty -ixon 		# turn off unwanted Ctrl-command behavior
+" # ... rest of the bashrc
+
+"" Ctrl-S saves all
+map <C-S> <esc>:wa<cr>
+"" Ctrl-Q tries to quit
+map <C-Q> <esc>:qa<cr>
+
+"" don't deselect in visual mode when using indent / deindent
+vmap < <gv
+vmap > >gv
+"" window jumps with C+arrows
+map <C-right> <C-W>l
+map <C-left> <C-W>h
+map <C-down> <C-W>j
+map <C-up> <C-W>k
+"" switch tabs with M+left or right
+map <silent> <M-left> <esc>:tabprevious<cr>
+map <silent> <M-right> <esc>:tabnext<cr>
+"" navigate tabs with <Space>+numbers
+nmap g1 1gt
+nmap g2 2gt
+nmap g3 3gt
+nmap g4 4gt
+nmap g5 5gt
+nmap g6 6gt
+nmap g7 7gt
+nmap g8 8gt
+nmap g9 9gt
+nmap g0 :tablast<cr>
+
+" ===== part 3 packages ===== "
+
+" only run parts 3,4,5 if Vundle.vim is installed 
+" mkdir -p ~/.vim/bundle
+" git clone https://github.com/VundleVim/Vundle.vim
+if (isdirectory($HOME . '/.vim/bundle/Vundle.vim'))
+
+    filetype off                  " Vundle requirement
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+    " plugin manager
+        Plugin 'VundleVim/Vundle.vim'
+        " sensible defaults, backspace key works, etc.
+        Plugin 'tpope/vim-sensible'
+
+        " === file browser & git
+        Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+        " tab compatibility (old repo)
+        Plugin 'jistr/vim-nerdtree-tabs'
+        " git icons in nerdtree and in the gutter
+        Plugin 'Xuyuanp/nerdtree-git-plugin'
+        Plugin 'airblade/vim-gitgutter'
+		Plugin 'tpope/vim-fugitive'
+        
+		" === power tools
+		" run tests
+		Plugin 'janko/vim-test'
+		" coc langserver MUST install release branch manually
+		" git clone --branch=release git@github.com:neoclide/coc.nvim \
+		" ~/.vim/bundle
+		if (isdirectory($HOME . '/.vim/bundle/coc.nvim'))
+			Plugin 'git@github.com:neoclide/coc.nvim'
+			" install servers with CocInstall
+			" CocInstall coc-tsserver
+			" CocInstall coc-prettier
+			" CocInstall coc-html
+			" CocInstall coc-stylelint
+			" CocInstall coc-python
+		endif
+        " TODO: check this out, git power based on some emacs plugin
+        "Plugin 'jreybert/vimagit'
+		" TODO: keep tabs on vimspector, implementation of VS Code debugger
+		" protocol.
+        
+		" === old favorites
+		" colorschemes
+        Plugin 'rafi/awesome-vim-colorschemes'
+        " comment out / uncomment
+		Plugin 'tpope/vim-commentary'
+        " open at the last place you were TODO: there's a non-plugin way to do
+		" this
+		Plugin 'farmergreg/vim-lastplace'
+        " my own snippets plugin
+		Plugin 'redcartel/simplesnips.vim'
+		" better jsx highlighting
+        Plugin 'neoclide/vim-jsx-improve'
+    call vundle#end()            " required
+    filetype plugin indent on    " required
+
+    " vimspector is an implementation of the VS Code debugger interface. Very
+    " alpha very promising, install the tar.gz and python gadget installer
+	" script way look at the code for example setups for different languages. 
+	" it's complicated. Commented out right now until I can spend some time
+	" with it. But I did get it installed and working with python.
+
+    "if (isdirectory($HOME . '/.vim/pack/vimspector'))
+    "	let g:vimspector_enable_mappings = 'HUMAN'
+    "	packadd! vimspector
+	"endif
+   
+	" ===== part 4: plugin settings =====
+	
+	" simplesnips	
+    let g:simplesnipsDir= $HOME . '/etc/simplesnips'
+
+    " NERDTree
+	nmap <silent> gn :NERDTreeToggle<CR>
+
+	" coc actions that navigate or show information start with g
+    nmap <silent> g[ <Plug>(coc-diagnostic-prev)
+    nmap <silent> g] <Plug>(coc-diagnostic-next)
+	nmap <silent> <M-Up> <Plug>(coc-diagnostic-prev)
+    nmap <silent> <M-Down> <Plug>(coc-diagnostic-next)
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+	" from the readme, but I didn't do the thing that changes the tab key
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        else
+            call CocAction('doHover')
+        endif
+    endfunction
+    "nnoremap <silent> K :call <SID>show_documentation()<CR>
+	nmap <silent> gh :call <SID>show_documentation()<CR>  
+    nmap <silent> ge :<C-u>CocList diagnostics<cr>
+    
+	" I've set coc actions that change the code to start with leader
+	nmap <silent> <leader>rn <Plug>(coc-rename)<CR>
+    nmap <silent> <leader>fm <Plug>(coc-format)<CR>
+    vmap <silent> <leader>fm <Plug>(coc-format-selected)<CR>
+
+
+	" ===== part 5 : plugin dependant custom commands =====
+    
+	command! -nargs=0 Format :call CocAction('format')
+    set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+	" TODO: write this to close saved tabs
+    " "" :Cb closes all saved buffs other than current one
+    " function! CloseOtherSavedBuffs()
+    "     " close non-editor windows & buffs
+    "     NERDTreeClose | lcl | ccl | pc | only
+    "     " get current buff number
+    "     let l:current_buff_num = bufnr('')
+    "     " silently execute bd on each buffer except the current one
+    "     bufdo if (bufnr('') != current_buff_num) | silent! bd | endif
+    "     " switch back to current buffer
+    "     exec 'b ' . l:current_buff_num
+    " endfun
+
+    " command! Cb call CloseOtherSavedBuffs()
+
+	" ctrl-O closes all non-editor windows and then makes whatever is left the
+	" only window
+    nmap <silent> <C-o> :NERDTreeClose \| helpclose \| lcl \| ccl \| pc \| only<cr>
+
+	colorscheme space-vim-dark
+endif

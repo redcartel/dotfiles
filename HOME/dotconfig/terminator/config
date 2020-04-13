@@ -1,0 +1,102 @@
+[global_config]
+[keybindings]
+  zoom_in = <Primary><Super>equal
+  zoom_out = <Primary><Super>minus
+  zoom_normal = <Primary><Super>0
+  new_tab = <Shift><Super>asciitilde
+  cycle_next = <Shift><Super>asciitilde
+  cycle_prev = <Shift><Super>asciitilde
+  go_next = <Shift><Super>asciitilde
+  go_prev = <Shift><Super>asciitilde
+  go_up = <Shift><Super>asciitilde
+  go_down = <Shift><Super>asciitilde
+  go_left = <Shift><Super>asciitilde
+  go_right = <Shift><Super>asciitilde
+  rotate_cw = <Shift><Super>asciitilde
+  rotate_ccw = <Shift><Super>asciitilde
+  split_horiz = <Shift><Super>asciitilde
+  split_vert = <Shift><Super>asciitilde
+  close_term = <Shift><Super>asciitilde
+  copy = <Primary><Super>c
+  paste = <Primary><Super>v
+  toggle_scrollbar = <Shift><Super>asciitilde
+  search = <Shift><Super>asciitilde
+  page_up = <Shift><Super>asciitilde
+  page_down = <Shift><Super>asciitilde
+  page_up_half = <Shift><Super>Page_Up
+  page_down_half = <Shift><Super>Page_Down
+  line_up = <Shift><Super>asciitilde
+  line_down = <Shift><Super>asciitilde
+  close_window = <Shift><Super>asciitilde
+  resize_up = <Shift><Super>asciitilde
+  resize_down = <Shift><Super>asciitilde
+  resize_left = <Shift><Super>asciitilde
+  resize_right = <Shift><Super>asciitilde
+  move_tab_right = <Shift><Super>asciitilde
+  move_tab_left = <Shift><Super>asciitilde
+  toggle_zoom = <Shift><Super>asciitilde
+  scaled_zoom = <Shift><Super>asciitilde
+  next_tab = <Shift><Super>asciitilde
+  prev_tab = <Shift><Super>asciitilde
+  switch_to_tab_1 = <Shift><Super>asciitilde
+  switch_to_tab_2 = <Shift><Super>asciitilde
+  switch_to_tab_3 = <Shift><Super>asciitilde
+  switch_to_tab_4 = <Shift><Super>asciitilde
+  switch_to_tab_5 = <Shift><Super>asciitilde
+  switch_to_tab_6 = <Shift><Super>asciitilde
+  switch_to_tab_7 = <Shift><Super>asciitilde
+  switch_to_tab_8 = <Shift><Super>asciitilde
+  switch_to_tab_9 = <Shift><Super>asciitilde
+  switch_to_tab_10 = <Shift><Super>asciitilde
+  full_screen = <Shift><Super>asciitilde
+  reset = <Shift><Super>asciitilde
+  reset_clear = <Shift><Super>asciitilde
+  hide_window = <Shift><Super>asciitilde
+  group_all = <Shift><Super>asciitilde
+  group_all_toggle = <Shift><Super>asciitilde
+  ungroup_all = <Shift><Super>asciitilde
+  group_tab = <Shift><Super>asciitilde
+  group_tab_toggle = <Shift><Super>asciitilde
+  ungroup_tab = <Shift><Super>asciitilde
+  new_window = <Shift><Super>asciitilde
+  new_terminator = <Shift><Super>asciitilde
+  broadcast_off = <Shift><Super>asciitilde
+  broadcast_group = <Shift><Super>asciitilde
+  broadcast_all = <Shift><Super>asciitilde
+  insert_number = <Shift><Super>asciitilde
+  insert_padded = <Shift><Super>asciitilde
+  edit_window_title = <Shift><Super>asciitilde
+  edit_tab_title = <Shift><Super>asciitilde
+  edit_terminal_title = <Shift><Super>asciitilde
+  layout_launcher = <Shift><Super>asciitilde
+  next_profile = <Shift><Super>asciitilde
+  previous_profile = <Shift><Super>asciitilde
+  help = <Shift><Super>asciitilde
+[profiles]
+  [[default]]
+    icon_bell = False
+    cursor_color = "#aaaaaa"
+    font = DejaVu Sans Mono 18
+    foreground_color = "#fdf6e3"
+    show_titlebar = False
+    scrollback_lines = 9999
+    palette = "#073642:#dc322f:#8ae234:#b58900:#268bd2:#d33682:#e9b96e:#eee8d5:#002b36:#cb4b16:#859900:#fce94f:#5555ff:#cc0000:#3465a4:#fdf6e3"
+    use_system_font = False
+  [[gruvbox]]
+    icon_bell = False
+    background_color = "#282828"
+    cursor_color = "#aaaaaa"
+    font = DejaVu Sans Mono 10
+    foreground_color = "#ebdbb2"
+    show_titlebar = False
+    palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]

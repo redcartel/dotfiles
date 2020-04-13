@@ -1,6 +1,12 @@
 " Carter's Neovim configuration. Jan 2020
 scriptencoding utf-8
 
+" CHEATSHEET
+" \ = <leader>
+" \t              : Toggle NERDTree and set hidden
+" M-left, M-right : next / prev buffer
+" :Cb             : close windows and saved buffers except the current one
+
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('~/.cache/dein')
