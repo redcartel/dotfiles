@@ -6,10 +6,19 @@
 # ß
 # If the above line is not correctly displayed, fix your editor first!
 
+# colors from the gimp Tango Icon Theme palette
+# From the 
+#    palette = "#000000:#c13900:#a4a900:#caaf00:#bd6d00:#fc5e00:#f79500:#ffc88a:#6a4f2a:#ff8c68:#f6ff40:#ffe36e:#ffbe55:#fc874f:#c69752:#fafaff"
+#    taken from IC_Orange_PPL from EliverLara/terminator-themes
 general {
         colors = true
         interval = 5
+		color_good = "#8ec07c"
+		color_degraded= "#d79921"
+		color_bad = "#cc241d"
 }
+
+
 
 # order += "ipv6"
 order += "disk /"

@@ -1,139 +1,183 @@
 #   an i3wm configuration. Carter Adams. 2018 - the end of time
 #
+# expected packages: xdg-utils, terminator, brave-browser, ffmpeg, firefox, feh
+#
+# self documenting, lines starting with #: are printed as reference guide
 
-# expected packages: xdg-utils, terminator, brave-browser, ffmpeg, firefox 
+#: redenv i3 configuration : Mod key is Windows
+set $mod Mod4
 
 set $terminal terminator
-set $fallback_terminal i3-sensible-terminal
+set $term_profile --profile="Gruvbox Dark"
 
+# set $fallback_terminal i3-sensible-terminal
 set $browser brave-browser
 set $fallback_browser firefox
-
 set $incognito_browser "brave-browser --incognito"
-set $defaultfolder ~
 
-# mod+enter launches terminal (Terminator)
-bindsym $mod+Return exec $terminal
-# mod+Shift+enter launches default terminal
-bindsym $mod+Shift+Return exec $fallback_terminal
-# mod+c opens browser (Brave)
+#: Mod+Esc:				dmenu (launch programs)
+bindsym $mod+Escape exec export PATH=$PATH && dmenu_run -fn 'DejaVu Sans Mono-17' -nb "$dark_gray" -nf "$bright_gray" -sb "$bright_aqua" -sf "$black" -p "run:"
+#bindsym $mod+d exec export PATH=$PATH && dmenu_run -fn 'DejaVu Sans Mono-17' -nb "$black" -nf "$bright_gray" -sb "$bright_aqua" -sf "$black" -p "run:"
+
+#: Mod+Shift+q:			kill current window
+bindsym $mod+Shift+q kill
+
+#: Mod+1 / Mod+2:	 	switch to workplace 1 or 2
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+
+#: Mod+ F keys:		 	special workplace F7=coms, F9=serv, F11=code, F12=test
+bindsym $mod+F7 workspace coms
+bindsym $mod+F9 workspace serv
+bindsym $mod+F11 workspace code
+bindsym $mod+F12 workspace test
+
+#: Mod+Left/ Mod+Right: switch to previous / next workspace
+bindsym $mod+Left [workspace=goof] kill; workspace prev
+bindsym $mod+Right [workspace=goof] kill; workspace next
+
+#: Mod+m:				move entire workspace to other output
+bindsym $mod+m move workspace to output right
+
+#: Mod+Shift+1,2,3,Fx:	move container to workplace	
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+F7 move container to workspace coms
+bindsym $mod+Shift+F9 move container to workspace serv
+bindsym $mod+Shift+F11 move container to workspace code
+bindsym $mod+Shift+F12 move container to workspace test
+
+#experimental
+bindsym $mod+Ctrl+F7 workspace coms; layout stacking; exec firefox; exec discord;
+bindsym $mod+Ctrl+F9 workspace serv; exec $terminal $term_profile
+bindsym $mod+Ctrl+F11 workspace code; exec terminator -e "vim ~/wk"
+bindsym $mod+Ctrl+F12 workspace test; exec chromium http://127.0.0.1:3000
+#end
+
+#: Mod+vim directions:	change window focus h=left, j=down, k=up, l=right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+#: Mod+Shift+direction:	move windows around the layout
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+focus_wrapping no
+
+#: Mod+shift+arrows: 	resize current window
+bindsym $mod+Shift+Left resize shrink width 2 px or 2 ppt
+bindsym $mod+Shift+Up resize grow height 2 px or 2 ppt
+bindsym $mod+Shift+Down resize shrink height 2 px or 2 ppt
+bindsym $mod+Shift+Right resize grow width 2 px or 2 ppt
+
+#: Mod+b / Mod+v:		new window splits horizontal / vertical
+bindsym $mod+b split h
+bindsym $mod+v split v
+#: Mod+e:				toggle split direction of windows
+bindsym $mod+e layout toggle split
+#: Mod+s: 				stacking mode
+bindsym $mod+s layout stacking
+#: Mod+f:				toggle fullscreen
+bindsym $mod+f fullscreen toggle
+#: Mod+Shift+Space:		toggle floating window, Mod+drag the floating window
+bindsym $mod+Shift+space floating toggle
+floating_modifier $mod
+popup_during_fullscreen leave_fullscreen
+
+#: Mod+a / Mod+Shift+a:	focus on parent group / focus on child window
+bindsym $mod+a focus parent
+bindsym $mod+Ctrl+a focus child
+
+#: Mod+Shift+r:			reload i3 config
+bindsym $mod+Shift+r restart
+
+#: Mod+Shift+e:			exit i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#: Mod+Shift+f:			open file explorer
+bindsym $mod+Shift+f exec xdg-open $defaultfolder
+
+#: Mod+Enter: 			launch terminator
+#: Mod+Shift+Enter: 	launch default terminal
+bindsym $mod+Return exec $terminal $term_profile
+bindsym $mod+Shift+Return exec i3-sensible-terminal
+
+#: Mod+C:				launch brave-browser
+#: Mod+Shift+C			launch default browser
 bindsym $mod+c exec $browser
-# mod+Shift+c opens default browser 
 bindsym $mod+Shift+c exec $fallback_browser
-# mod+Shift+i opens browser (Brave) incognito
-bindsym $mod+Shift+i exec $incognito_browser
+bindsym $mod+Ctrl+c exec $incognito_browser
 
-# launch my startupscript
-exec $autolaunch
+#: Mod+V - open vim
+bindsym $mod+Shift+v exec terminator -x "vim ~/wk"
 
-# mod key is Windows
-set $mod Mod4
+#: Mod+g / Mod+Shift+g:	goof off / stop goofing off
+bindsym $mod+g [workspace=goof] kill; workspace goof; exec chromium; exec terminator
+bindsym $mod+Shift+g [workspace=goof] kill; workspace code
+
+# font for window titles
+font pango:Dejavu Sans Mono 14
+
+# Gruvbox
+set $white #fbf5d7
+set $black #1d2021
+set $dark_red #cc241d
+set $bright_red #fb4934
+set $dark_green #98971a
+set $bright_green #b8bb26
+set $dark_yellow #d79921
+set $bright_yellow #fabd2f
+set $dark_blue #458588
+set $bright_blue #83a598
+set $dark_purple #b162286
+set $bright_purple #d3869b
+set $dark_aqua #689d6a
+set $bright_aqua #8ec07c
+set $dark_gray #3c3836
+set $mid_gray #7c6f64
+set $brighter_gray #f2e5bc
+set $bright_gray #bdae93
+set $dark_orange #d65d0e
+set $bright_orange #fe8019
+
+# pixel sizes
+default_border normal 5
+default_floating_border pixel 5
+
+# no titles for some apps
+for_window [class="Terminator"] border pixel 5
+for_window [class="x-terminal-emulator"] border pixel 5
+for_window [class="Chromium"] border pixel 5
 
 # i3status bar. config in ~/dotfiles/i3/i3.status.config
 bar {
         status_command i3status
         tray_output primary
-        font pango:Dejavu Sans Mono 18 
+        font pango:Dejavu Sans Mono 15
+		position top
+	colors {
+		focused_workspace $bright_aqua $bright_aqua $black
+		active_workspace $brighter_gray $brighter_gray $black
+		inactive_workspace $bright $bright_gray $dark_gray
+		urgent_workspace $dark_red $bright_red $black
+		separator $mid_gray
+		statusline $bright_gray
+		focused_statusline $bright_aqua
+		background $dark_gray
+	}
 }
 
-# swap escape and caps at launch (~/binfiles/swesc will do this too)
-# exec /usr/bin/setxkbmap -option "caps:swapescape"
+# window colors
+client.focused $black $bright_aqua $black $bright_aqua
+client.unfocused $black $dark_gray $light_gray $dark_gray
+client.focused_inactive $black $brighter_gray $black $brighter_gray
+client.urgent $black $bright_red $black $black
+client.placeholder $black $white $mid_gray $black
+client.background $dark_gray
 
-# font for window titles
-font pango:monospace 18
-
-# mod + mouse to move floating windows
-floating_modifier $mod
-
-# leave fullscreen mode if a window opens
-popup_during_fullscreen leave_fullscreen
-
-# mod + shift + q to kill a window
-bindsym $mod+Shift+q kill
-
-# start dmenu
-bindsym $mod+d exec export PATH=$PATH && dmenu_run -fn 'DejaVu Sans Mono-18'
-
-# change focus with mod + arrows
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# mod + shift + vim directions to move windows
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+j move up
-bindsym $mod+Shift+l move right
-
-# (note mod + vim keys currently unbound, but mod+l is a
-# gnome flashback command for lock screen
-
-# mod + shift + arrows to resize windows (imagine window in top-left)
-bindsym $mod+Shift+Left resize shrink width 2 px or 2 ppt
-bindsym $mod+Shift+Down resize grow height 2 px or 2 ppt
-bindsym $mod+Shift+Up resize shrink height 2 px or 2 ppt
-bindsym $mod+Shift+Right resize grow width 2 px or 2 ppt
-
-# mod b, mod v makes next window split left-right / top-bottom
-bindsym $mod+b split h
-bindsym $mod+v split v
-
-# mod f: go fullscreen, mod s: stack window group, mod e: change split style
-bindsym $mod+f fullscreen toggle
-# mod s: stacking mode
-bindsym $mod+s layout stacking
-# mod e: switch vert layout to horizontal and back
-bindsym $mod+e layout toggle split
-
-# mod+shift+space toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# mod+space change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# mod+a focus parent, mod+shift+a focus child
-bindsym $mod+a focus parent
-bindsym $mod+Shift+a focus child
-
-# mod+number switch workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
-
-# mod+shift+number move window to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
-# mod+shift+r restart i3, mod+shift+e confirm logout, mod+ctrl+e no-confirm
-bindsym $mod+Shift+r restart
-
-# old i3-quit disabled for gnome-session-quit
-
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-# Application launchers
-
-# mod+Shift+b loads random background image
-bindsym $mod+Shift+b exec rbg
-# mod+Shift+f opens the file manager
-bindsym $mod+Shift+f exec xdg-open $defaultfolder
-# mod+Shift+t opens todo list
-bindsym $mod+Shift+t exec $todocommand
 
 # Webcam headshot setup
 for_window [class="ffplay"] floating enable
@@ -142,13 +186,30 @@ for_window [class="ffplay"] resize set 240 180
 for_window [class="ffplay"] move position 1680 0
 for_window [class="ffplay"] sticky enable
 
+#: Mod+Ctrl+1		start headshot cam
 bindsym $mod+Ctrl+1 [class="ffplay"] kill; exec "ffplay /dev/video0"; [class="ffplay"] move position 1680 0
-bindsym $mod+Ctrl+2 [class="ffplay"] resize set 240 180; [class="ffplay"] move position 1680 880
-bindsym $mod+Ctrl+3 [class="ffplay"] resize set 240 180; [class="ffplay"] move position 0 880
-bindsym $mod+Ctrl+4 [class="ffplay"] resize set 240 180; [class="ffplay"] move position 0 0
-bindsym $mod+Ctrl+5 [class="ffplay"] resize set 480 360; [class="ffplay"] move position 1440 0
-bindsym $mod+Ctrl+6 [class="ffplay"] resize set 480 360; [class="ffplay"] move position 1440 700
-bindsym $mod+Ctrl+7 [class="ffplay"] resize set 480 360; [class="ffplay"] move position 0 700
-bindsym $mod+Ctrl+8 [class="ffplay"] resize set 480 360; [class="ffplay"] move position 0 0
+#: Mod+Ctrl+2       make camera bigger
+bindsym $mod+Ctrl+2 [class="ffplay"] resize set 480 360; [class="ffplay"] move position 1440 0
+#: Mod+Ctrl+0       kill headshot cam
+bindsym $mod+Ctrl+0 [class="ffplay"] kill
+#: Mod+Ctrl+2,3,4	move to bottom right / bottom left / top left
+#bindsym $mod+Ctrl+2 [class="ffplay"] resize set 240 180; [class="ffplay"] move position 1680 900
+#bindsym $mod+Ctrl+3 [class="ffplay"] resize set 240 180; [class="ffplay"] move position 0 900
+#bindsym $mod+Ctrl+4 [class="ffplay"] resize set 240 180; [class="ffplay"] move position 0 0
 
-bindsym $mod+Ctrl+0 [class="ffplay"] kill;
+##: Mod+Ctrl+5,6     move to top right / bottom right on double display
+#bindsym $mod+Ctrl+5 [class="ffplay"] resize set 240 180; [class="ffplay"] move position 2760 0
+
+#bindsym $mod+Ctrl+6 [class="ffplay"] resize set 240 180; [class="ffplay"] move position 2760 900
+#bindsym $mod+Ctrl+7 [class="ffplay"] resize set 480 360; [class="ffplay"] move position 1440 0
+#bindsym $mod+Ctrl+8 [class="ffplay"] resize set 480 360; [class="ffplay"] move position 1440 720
+#bindsym $mod+Ctrl+9 [class="ffplay"] resize set 480 360; [class="ffplay"] move position 2520 0
+##: Mod+Ctrl+0		kill cam
+#bindsym $mod+Ctrl+0 [class="ffplay"] kill;
+# Autolaunch
+# set the background
+exec --no-startup-id rbg
+# open the startup terminal (with this documentation)
+exec i3-msg "workspace code; exec terminator -e 'bash --rcfile ~/redenv/i3/scripts/terminatorrc.sh'"
+# launch taskbar widgets, power consumption control
+exec --no-startup-id o

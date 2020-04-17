@@ -2,24 +2,31 @@
 " :Sn <tab complete> : insert simplesnip
 " gc              : comment / uncoment
 
-" g[, g],		  : go to next / prev langserver linting error	 
-" M-down, M-up 	  : go to next / prev langserver linting error
-" gd              : go to definition
-" gy              : go to type definition
-" gi              : go to implementation
-" gr              : go to references 
-" gh              : show documentation
-" ge              : diagnostics (list errors)
-" \rn             : rename  
-" \fm             : format file or vis selection
+" g[, g],		  	: go to next / prev langserver linting error	 
+" M-down, M-up 	  	: go to next / prev langserver linting error
+" gd              	: go to definition
+" gy              	: go to type definition
+" gi              	: go to implementation
+" gr              	: go to references 
+" gh              	: show documentation
+" ge              	: diagnostics (list errors)
+" gn          		: rename  
+" gf        	   	: format file or vis selection
 " :TestSuite :TestFile :TestLast :TestVisit - running unit tests
+" TODO: actually start using fugitive
 
 " ctrl+arrows 	  	: jump windows
 " ctrl+o			: close non editor windows, make editor the only win
-" gn				: open NERDTree, t to open file in new tab
+" tn				: open NERDTree, t to open file in new tab
+" to				: open new tab
+" tc				: close tab
 " M-left M-right	: navigate tabs
-" g1 g2				: jump to numbered tab (1-9)
-" g0				: jump to last tab
+" t1 t2	...			: jump to numbered tab (1-9)
+" t0				: jump to last tab
+
+" \ff 				: unfold all
+" \fa				: fold / unfold here (zA)
+" \f0 \f1 ... 		: set foldlevel=
 
 " TOC
 " part 1: normal vimrc
@@ -36,12 +43,12 @@
 " be improved
 set nocompatible 
 " poor man's vcs / file behavior
-set noswapfile
-
+set noswapfile " swapfiles suck
 set undofile
 set undodir=~/.vim/undo
 set history=10000
 set autoread
+
 " if available, mouse is on
 if has("mouse") | set mouse=a | endif
 "" If compiled with clipboard support, use system clipboard for yank & pull
@@ -83,7 +90,7 @@ set nospell
 
 " ===== part 2: custom functions & commands =====
 
-" Vimrc edits .vimrc Svimrc 
+" Vimrc edits .vimrc Svimrc sources it
 command! Vimrc edit ~/.vimrc
 command! Svimrc source ~/.vimrc
 
@@ -91,7 +98,7 @@ command! Svimrc source ~/.vimrc
 nnoremap Q <nop>
 map q <nop>
 
-" ctrl S/Q/W work like normal, must have this in bashrc (what I put up top):
+" ctrl S/Q work like normal, must have this in bashrc (what I put up top):
 
 " #! /bin/bash
 " #PATH=			# might want to set PATH here so all shells get it
@@ -118,17 +125,40 @@ map <C-up> <C-W>k
 "" switch tabs with M+left or right
 map <silent> <M-left> <esc>:tabprevious<cr>
 map <silent> <M-right> <esc>:tabnext<cr>
-"" navigate tabs with <Space>+numbers
-nmap g1 1gt
-nmap g2 2gt
-nmap g3 3gt
-nmap g4 4gt
-nmap g5 5gt
-nmap g6 6gt
-nmap g7 7gt
-nmap g8 8gt
-nmap g9 9gt
-nmap g0 :tablast<cr>
+"" to opens new tab
+nmap to <esc>:tabnew<cr>
+nmap tc <esc>:tabclose<cr>
+"" navigate tabs with t+numbers
+nmap t1 1gt
+nmap t2 2gt
+nmap t3 3gt
+nmap t4 4gt
+nmap t5 5gt
+nmap t6 6gt
+nmap t7 7gt
+nmap t8 8gt
+nmap t9 9gt
+nmap t0 :tablast<cr>
+
+" folds on but unfolded at start
+set foldenable
+set foldmethod=indent
+set foldlevel=999
+command! -nargs=1 F :set foldlevel=<args>
+" \f does fold commands
+nnoremap <Leader>ff :set foldlevel=99<CR>
+nnoremap <Leader>fa zA
+nnoremap <Leader>f0 :set foldlevel=0<CR>
+nnoremap <Leader>f1 :set foldlevel=1<CR>
+nnoremap <Leader>f2 :set foldlevel=2<CR>
+nnoremap <Leader>f3 :set foldlevel=3<CR>
+nnoremap <Leader>f4 :set foldlevel=4<CR>
+nnoremap <Leader>f5 :set foldlevel=5<CR>
+nnoremap <Leader>f6 :set foldlevel=6<CR>
+nnoremap <Leader>f7 :set foldlevel=7<CR>
+nnoremap <Leader>f8 :set foldlevel=8<CR>
+nnoremap <Leader>f9 :set foldlevel=9<CR>
+"" M-c closes extraneous windows
 
 " ===== part 3 packages ===== "
 
@@ -169,10 +199,9 @@ if (isdirectory($HOME . '/.vim/bundle/Vundle.vim'))
 			" CocInstall coc-stylelint
 			" CocInstall coc-python
 		endif
+
         " TODO: check this out, git power based on some emacs plugin
         "Plugin 'jreybert/vimagit'
-		" TODO: keep tabs on vimspector, implementation of VS Code debugger
-		" protocol.
         
 		" === old favorites
 		" colorschemes
@@ -206,7 +235,9 @@ if (isdirectory($HOME . '/.vim/bundle/Vundle.vim'))
     let g:simplesnipsDir= $HOME . '/etc/simplesnips'
 
     " NERDTree
-	nmap <silent> gn :NERDTreeToggle<CR>
+	nmap <silent> tn :set hidden \| NERDTreeToggle<CR>
+	" show 80 chars to the right with NT open @ rotated 1080p @ 12pt Deja Vu S
+	let g:NERDTreeWinSize=18
 
 	" coc actions that navigate or show information start with g
     nmap <silent> g[ <Plug>(coc-diagnostic-prev)
@@ -226,13 +257,13 @@ if (isdirectory($HOME . '/.vim/bundle/Vundle.vim'))
         endif
     endfunction
     "nnoremap <silent> K :call <SID>show_documentation()<CR>
-	nmap <silent> gh :call <SID>show_documentation()<CR>  
+	nmap <silent> K :call <SID>show_documentation()<CR>  
     nmap <silent> ge :<C-u>CocList diagnostics<cr>
     
 	" I've set coc actions that change the code to start with leader
-	nmap <silent> <leader>rn <Plug>(coc-rename)<CR>
-    nmap <silent> <leader>fm <Plug>(coc-format)<CR>
-    vmap <silent> <leader>fm <Plug>(coc-format-selected)<CR>
+	nmap <silent> gn <Plug>(coc-rename)<CR>
+    nmap <silent> gf <Plug>(coc-format)<CR>
+    vmap <silent> gf <Plug>(coc-format-selected)<CR>
 
 
 	" ===== part 5 : plugin dependant custom commands =====
@@ -255,9 +286,26 @@ if (isdirectory($HOME . '/.vim/bundle/Vundle.vim'))
 
     " command! Cb call CloseOtherSavedBuffs()
 
-	" ctrl-O closes all non-editor windows and then makes whatever is left the
+	" ctrl-o closes all non-editor windows and then makes whatever is left the
 	" only window
     nmap <silent> <C-o> :NERDTreeClose \| helpclose \| lcl \| ccl \| pc \| only<cr>
 
-	colorscheme space-vim-dark
+	colorscheme gruvbox
+
+	"command! Yesh let g:gruvbox_guisp_fallback = "bg"
+	set background=dark
+	let g:gruvbox_undercurl=1
+	let g:gruvbox_underline=1
+endif
+
+if has('gui_running')
+"set guifont=Menlo:h13
+set gfn:Monospace:h16
+set guioptions-=T       " remove toolbar
+set guioptions-=L       " left scroll bar
+set guioptions-=r       " right scroll bar
+set guioptions-=b      " bottom scroll bar
+"set guioptions-=h      " only calculate bottom scroll size of current line
+set shortmess=atI           " Don't show the intro message at start and
+							"   truncate msgs (avoid press ENTER msgs).
 endif

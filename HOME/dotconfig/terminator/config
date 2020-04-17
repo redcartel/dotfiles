@@ -1,4 +1,51 @@
+# Gruvbox Colors
+# let s:gb.dark0_hard  = ['#1d2021', 234]     " 29-32-33
+# let s:gb.dark0       = ['#282828', 235]     " 40-40-40
+# let s:gb.dark0_soft  = ['#32302f', 236]     " 50-48-47
+# let s:gb.dark1       = ['#3c3836', 237]     " 60-56-54
+# let s:gb.dark2       = ['#504945', 239]     " 80-73-69
+# let s:gb.dark3       = ['#665c54', 241]     " 102-92-84
+# let s:gb.dark4       = ['#7c6f64', 243]     " 124-111-100
+# let s:gb.dark4_256   = ['#7c6f64', 243]     " 124-111-100
+
+# let s:gb.gray_245    = ['#928374', 245]     " 146-131-116
+# let s:gb.gray_244    = ['#928374', 244]     " 146-131-116
+
+# let s:gb.light0_hard = ['#f9f5d7', 230]     " 249-245-215
+# let s:gb.light0      = ['#fbf1c7', 229]     " 253-244-193
+# let s:gb.light0_soft = ['#f2e5bc', 228]     " 242-229-188
+# let s:gb.light1      = ['#ebdbb2', 223]     " 235-219-178
+# let s:gb.light2      = ['#d5c4a1', 250]     " 213-196-161
+# let s:gb.light3      = ['#bdae93', 248]     " 189-174-147
+# let s:gb.light4      = ['#a89984', 246]     " 168-153-132
+# let s:gb.light4_256  = ['#a89984', 246]     " 168-153-132
+
+# let s:gb.bright_red     = ['#fb4934', 167]     " 251-73-52
+# let s:gb.bright_green   = ['#b8bb26', 142]     " 184-187-38
+# let s:gb.bright_yellow  = ['#fabd2f', 214]     " 250-189-47
+# let s:gb.bright_blue    = ['#83a598', 109]     " 131-165-152
+# let s:gb.bright_purple  = ['#d3869b', 175]     " 211-134-155
+# let s:gb.bright_aqua    = ['#8ec07c', 108]     " 142-192-124
+# let s:gb.bright_orange  = ['#fe8019', 208]     " 254-128-25
+
+# let s:gb.neutral_red    = ['#cc241d', 124]     " 204-36-29
+# let s:gb.neutral_green  = ['#98971a', 106]     " 152-151-26
+# let s:gb.neutral_yellow = ['#d79921', 172]     " 215-153-33
+# let s:gb.neutral_blue   = ['#458588', 66]      " 69-133-136
+# let s:gb.neutral_purple = ['#b16286', 132]     " 177-98-134
+# let s:gb.neutral_aqua   = ['#689d6a', 72]      " 104-157-106
+# let s:gb.neutral_orange = ['#d65d0e', 166]     " 214-93-14
+
+# let s:gb.faded_red      = ['#9d0006', 88]      " 157-0-6
+# let s:gb.faded_green    = ['#79740e', 100]     " 121-116-14
+# let s:gb.faded_yellow   = ['#b57614', 136]     " 181-118-20
+# let s:gb.faded_blue     = ['#076678', 24]      " 7-102-120
+# let s:gb.faded_purple   = ['#8f3f71', 96]      " 143-63-113
+# let s:gb.faded_aqua     = ['#427b58', 66]      " 66-123-88
+# let s:gb.faded_orange   = ['#af3a03', 130]     " 175-58-3
 [global_config]
+  extra_styling = False
+  enabled_plugins = MavenPluginURLHandler, LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler, TerminatorThemes
 [keybindings]
   zoom_in = <Primary><Super>equal
   zoom_out = <Primary><Super>minus
@@ -69,27 +116,34 @@
   edit_tab_title = <Shift><Super>asciitilde
   edit_terminal_title = <Shift><Super>asciitilde
   layout_launcher = <Shift><Super>asciitilde
-  next_profile = <Shift><Super>asciitilde
-  previous_profile = <Shift><Super>asciitilde
+  next_profile = <Primary><Super>bracketright
+  previous_profile = <Alt><Super>bracketleft
   help = <Shift><Super>asciitilde
 [profiles]
   [[default]]
     icon_bell = False
+    background_darkness = 0.1
+    background_type = transparent
     cursor_color = "#aaaaaa"
-    font = DejaVu Sans Mono 18
-    foreground_color = "#fdf6e3"
+    font = DejaVu Sans Mono 14
+    foreground_color = "#ffffff"
     show_titlebar = False
+    scrollbar_position = hidden
     scrollback_lines = 9999
-    palette = "#073642:#dc322f:#8ae234:#b58900:#268bd2:#d33682:#e9b96e:#eee8d5:#002b36:#cb4b16:#859900:#fce94f:#5555ff:#cc0000:#3465a4:#fdf6e3"
+    palette = "#000000:#ef2929:#8ae234:#fce94f:#268bd2:#ad7fa8:#fcaf3e:#eee8d5:#073642:#cc0000:#73d216:#edd400:#3465a4:#75507b:#c17d11:#fdf6e3"
     use_system_font = False
-  [[gruvbox]]
+  [[Gruvbox Dark]]
     icon_bell = False
-    background_color = "#282828"
-    cursor_color = "#aaaaaa"
-    font = DejaVu Sans Mono 10
-    foreground_color = "#ebdbb2"
+    background_color = "#1e1e1e"
+    background_darkness = 0.0
+    background_type = transparent
+    cursor_color = "#bbbbbb"
+    font = DejaVu Sans Mono 18
+    foreground_color = "#e6d4a3"
     show_titlebar = False
-    palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
+    scrollbar_position = hidden
+    scrollback_lines = 9999
+    palette = "#161819:#f73028:#aab01e:#f7b125:#719586:#c77089:#7db669:#faefbb:#7f7061:#be0f17:#868715:#cc881a:#377375:#a04b73:#578e57:#e6d4a3"
     use_system_font = False
 [layouts]
   [[default]]
